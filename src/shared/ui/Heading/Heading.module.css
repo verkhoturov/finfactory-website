@@ -1,0 +1,15 @@
+.pageTitle {
+    font-size: 62px;
+    font-weight: 900;
+    line-height: 64px;
+    letter-spacing: 0.05em;
+    white-space: pre-wrap;
+    color: white;
+}
+
+@media (max-width: 1023px) {
+    .pageTitle {
+        font-size: 34px;
+        line-height: 44px;
+    }
+}

@@ -1,4 +1,3 @@
-import '@/styles/normalize.css';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { Roboto } from 'next/font/google';

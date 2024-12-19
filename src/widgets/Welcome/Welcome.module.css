@@ -55,7 +55,7 @@
     position: relative;
     top: -78px;
 
-    padding: 0 18px;
+    padding: 0 16px;
 }
 
 .nav > ul {
@@ -89,5 +89,9 @@
 
     .nav > ul > li {
         width: calc(50% - 8px);
+    }
+
+    .navigationWrapper {
+        padding: 0;
     }
 }

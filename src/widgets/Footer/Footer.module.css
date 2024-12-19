@@ -191,4 +191,8 @@
     .contactForm > form {
         align-items: center;
     }
+
+    .logoWrapper {
+        height: 23.5px;
+    }
 }

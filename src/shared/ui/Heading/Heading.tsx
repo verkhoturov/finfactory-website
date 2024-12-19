@@ -25,5 +25,6 @@ const H3 = ({ children, color = 'dark' }: HeadingProps) => {
 
 export const Heading = {
     H1,
+    H2,
     H3,
 };

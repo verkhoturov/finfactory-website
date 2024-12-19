@@ -3,6 +3,9 @@ import { Layout } from '@/shared/ui/Layout';
 import { Header } from '@/widgets/Header';
 import { Footer } from '@/widgets/Footer';
 import { Welcome } from '@/widgets/Welcome';
+import { WhyWe } from '@/widgets/WhyWe';
+import { SystemCapabilities } from '@/widgets/SystemCapabilities';
+import { Blog } from '@/widgets/Blog';
 
 export default function Home() {
     return (
@@ -17,6 +20,9 @@ export default function Home() {
                 <Header />
                 <Layout.Main>
                     <Welcome />
+                    <WhyWe />
+                    <SystemCapabilities />
+                    <Blog />
                 </Layout.Main>
                 <Footer />
             </Layout.Page>

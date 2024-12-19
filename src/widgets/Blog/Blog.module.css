@@ -1,10 +1,10 @@
 .wrapper {
     padding-top: 60px;
     padding-bottom: 60px;
+}
 
-    > h2 {
-        margin-bottom: 32px;
-    }
+.wrapper > h2 {
+    margin-bottom: 32px;
 }
 
 .row {
@@ -17,11 +17,12 @@
     .wrapper {
         padding-top: 30px;
         padding-bottom: 30px;
-
-        > h2 {
-            margin-bottom: 21px;
-        }
     }
+
+    .wrapper  > h2 {
+        margin-bottom: 21px;
+    }
+
     .row {
         flex-direction: column;
     }

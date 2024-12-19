@@ -29,10 +29,10 @@
 
 .inner {
     position: relative;
+}
 
-    > h1 {
-        text-transform: uppercase;
-    }
+.inner  > h1 {
+    text-transform: uppercase;
 }
 
 .desc {

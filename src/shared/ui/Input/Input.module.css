@@ -1,26 +1,26 @@
 .wrapper {
     width: 100%;
+}
 
-    > input {
-        width: 100%;
-        height: 52.44px;
+.wrapper > input {
+    width: 100%;
+    height: 52.44px;
 
-        border-radius: 4px;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        background: unset;
+    border-radius: 4px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: unset;
 
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 21.79px;
-        color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21.79px;
+    color: white;
 
-        padding-left: 20px;
-    }
+    padding-left: 20px;
+}
 
-    > input::placeholder {
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 21.79px;
-        color: white;
-    }
+.wrapper > input::placeholder {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21.79px;
+    color: white;
 }

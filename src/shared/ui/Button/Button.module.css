@@ -2,17 +2,30 @@
     height: 40px;
 
     border-radius: 2px;
-    border: 1px solid #ffffff;
+    border: unset;
 
     font-size: 13px;
     font-weight: 900;
     line-height: 14px;
     text-align: center;
-    color: white;
 
     padding: 0 26px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    cursor: pointer;
+}
+
+.outline {
+    border: 1px solid #ffffff;
+    color: white;
+    background: none;
+}
+
+.cta {
+    background: rgba(243, 185, 25, 1);
+    border: 1px solid rgba(243, 185, 25, 1);
+    color: #000000b5;
 }

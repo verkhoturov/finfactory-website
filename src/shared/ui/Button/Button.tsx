@@ -1,17 +1,20 @@
 import React from 'react';
 import cn from 'classnames';
-import Link, { LinkProps } from 'next/link';
 
 import styles from './Button.module.css';
 
-interface LinkButtonProps extends LinkProps {
+interface ButtonProps
+    extends React.DetailedHTMLProps<
+        React.ButtonHTMLAttributes<HTMLButtonElement>,
+        HTMLButtonElement
+    > {
     children: React.ReactNode;
     variant?: 'cta' | 'outline';
 }
 
-export const LinkButton = ({ children, variant = 'outline', ...rest }: LinkButtonProps) => {
+export const Button = ({ children, variant = 'cta', ...rest }: ButtonProps) => {
     return (
-        <Link
+        <button
             {...rest}
             className={cn(styles.wrapper, {
                 [styles.cta]: variant === 'cta',
@@ -19,6 +22,6 @@ export const LinkButton = ({ children, variant = 'outline', ...rest }: LinkButto
             })}
         >
             {children}
-        </Link>
+        </button>
     );
 };

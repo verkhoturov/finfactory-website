@@ -4,6 +4,11 @@
     top: 5px;
 }
 
+.wrapper.small {
+    top: 0;
+    padding-left: 0;
+}
+
 @media (max-width: 1023px) {
     .wrapper {
         padding-left: 0;
@@ -11,5 +16,10 @@
 
     .img {
         width: 132px;
+    }
+
+    .smallImg {
+        width: 94px;
+        height: 10px;
     }
 }

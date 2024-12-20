@@ -95,8 +95,8 @@ export const Footer = () => {
                     <div className={styles.secondContentWrapper}>
                         <span className={styles.text}>
                             Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever
-                            since the 1500s, when an unknown pr
+                            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
+                            ever since the 1500s, when an unknown pr
                         </span>
                     </div>
 

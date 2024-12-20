@@ -6,6 +6,7 @@ import { Welcome } from '@/widgets/Welcome';
 import { WhyWe } from '@/widgets/WhyWe';
 import { SystemCapabilities } from '@/widgets/SystemCapabilities';
 import { Blog } from '@/widgets/Blog';
+import { FAQ } from '@/widgets/FAQ';
 
 export default function Home() {
     return (
@@ -22,6 +23,7 @@ export default function Home() {
                     <Welcome />
                     <WhyWe />
                     <SystemCapabilities />
+                    <FAQ />
                     <Blog />
                 </Layout.Main>
                 <Footer />

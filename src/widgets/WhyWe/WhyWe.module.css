@@ -4,8 +4,7 @@
 }
 
 .wrapper > h2 {
-        margin-bottom: 32px;
-    
+    margin-bottom: 32px;
 }
 
 .row {
@@ -21,8 +20,7 @@
     }
 
     .wrapper > h2 {
-            margin-bottom: 21px;
-        
+        margin-bottom: 21px;
     }
     .row {
         flex-direction: column;

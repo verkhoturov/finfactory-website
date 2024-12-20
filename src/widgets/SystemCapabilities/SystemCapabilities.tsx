@@ -49,7 +49,7 @@ export const SystemCapabilities = () => {
                             1C, Oracle. Платформа может быть развернута в облаке FINFACTORY или
                             развернута и брендирована в контуре заказчика.
                         </p>
-                        <br/>
+                        <br />
                         <div className={styles.logos}>
                             <Image src={oneAssImg} width={32} height={22} alt="1c" />
                             <Image src={oracleImg} width={61} height={22} alt="oracle" />

@@ -167,6 +167,10 @@
 }
 
 @media (max-width: 1023px) {
+    .navigation {
+        padding-top: 50px;
+    }
+
     .links {
         display: none;
     }
@@ -186,6 +190,7 @@
 
     .contactForm {
         margin: 0 auto;
+        flex: 0 0 100%;
     }
 
     .contactForm > form {

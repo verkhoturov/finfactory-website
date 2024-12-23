@@ -1,0 +1,1 @@
+export { FinInstWelcome } from './FinInstWelcome';

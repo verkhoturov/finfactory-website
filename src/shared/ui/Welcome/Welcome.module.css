@@ -29,9 +29,16 @@
 
 .inner {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 50px;
+
+    min-height: 245px;
 }
 
-.inner > h1 {
+.inner > h1,
+.inner > h2 {
     text-transform: uppercase;
 }
 
@@ -48,7 +55,7 @@
 .descWrapper {
     position: absolute;
     right: 20px;
-    top: -42px;
+    top: 0;
 }
 
 .navigationWrapper {
@@ -67,14 +74,31 @@
     list-style-type: none;
 }
 
+.icon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
 @media (max-width: 1023px) {
+    .icon {
+        display: none;
+    }
+
+    .inner {
+        padding-top: 30px;
+        padding-bottom: 0;
+        min-height: auto;
+    }
+
     .wrapper {
         min-height: 387px;
+        padding: 0;
     }
 
     .descWrapper {
         right: 0;
-        top: -50px;
+        top: -24px;
     }
 
     .desc {
@@ -93,5 +117,6 @@
 
     .navigationWrapper {
         padding: 0;
+        top: -50px;
     }
 }

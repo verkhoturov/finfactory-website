@@ -24,7 +24,8 @@
     height: 100%;
 
     background-repeat: no-repeat;
-    background-position-x: calc((100% - 620px) / 2 + 620px);
+    /* background-position-x: calc((100% - 620px) / 2 + 620px); */
+    background-position-x: right;
 }
 
 .inner {
@@ -60,7 +61,7 @@
 
 .navigationWrapper {
     position: relative;
-    top: -78px;
+    top: -90px;
 
     padding: 0 16px;
 }
@@ -69,9 +70,13 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    gap: 16px;
+    gap: 12px;
 
     list-style-type: none;
+}
+
+.nav.home > ul {
+    gap: 16px;
 }
 
 .icon {

@@ -6,6 +6,7 @@ import { SystemCapabilities } from '@/widgets/SystemCapabilities';
 import { Blog } from '@/widgets/Blog';
 import { FAQ } from '@/widgets/FAQ';
 import { CorpHoldWelcome } from '@/widgets/CorpHoldWelcome';
+import { ServiceInfo } from '@/widgets/ServiceInfo';
 
 export default function CorpHoldPage() {
     return (
@@ -20,6 +21,7 @@ export default function CorpHoldPage() {
                 <Header />
                 <Layout.Main>
                     <CorpHoldWelcome />
+                    <ServiceInfo />
                     <SystemCapabilities />
                     <FAQ />
                     <Blog />

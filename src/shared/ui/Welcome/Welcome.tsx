@@ -1,3 +1,6 @@
+import React from 'react';
+import cn from 'classnames';
+import { useRouter } from 'next/router';
 import { Layout } from '@/shared/ui/Layout';
 import { Heading } from '@/shared/ui/Heading';
 import { NavCard } from '@/shared/ui/NavCard';
@@ -8,7 +11,6 @@ import holdingsImg from './img/holdings.svg';
 import companyImg from './img/company.svg';
 import finImg from './img/fin.svg';
 import agentsImg from './img/agents.svg';
-import React from 'react';
 
 const homeMenuItems = [
     {
@@ -25,11 +27,61 @@ const homeMenuItems = [
     { title: 'Агентам\n\n', href: '/agents', iconUrl: agentsImg.src },
 ];
 
+const tabsCommonMenu = [
+    {
+        title: 'Динамическое дисконтирование',
+        tab: 'dynamic-discounting',
+    },
+    {
+        title: 'Биржа факторинга',
+        tab: 'factor-broker',
+        isDisabled: true,
+    },
+    {
+        title: 'Аукцион дисконтирования',
+        tab: 'auction-discounting',
+        isDisabled: true,
+    },
+    {
+        title: 'Финансирование покупателей',
+        tab: 'buyers-financing',
+        isDisabled: true,
+    },
+    {
+        title: 'Цифровой двойник цепочки поставок',
+        tab: 'digital-doubloon-supply-chain',
+        isDisabled: true,
+    },
+    {
+        title: 'Верификация',
+        tab: 'verification',
+        isDisabled: true,
+    },
+];
+
 const HomePageMenu = () => (
     <ul>
         {homeMenuItems.map(({ title, iconUrl, href }) => (
             <li key={title}>
                 <NavCard href={href} iconUrl={iconUrl}>
+                    {title}
+                </NavCard>
+            </li>
+        ))}
+    </ul>
+);
+
+const TabsMenu = ({ activeTab }: { activeTab: string }) => (
+    <ul>
+        {tabsCommonMenu.map(({ title, tab, isDisabled }) => (
+            <li key={title}>
+                <NavCard
+                    href={`?tab=${tab}`}
+                    isDisabled={isDisabled}
+                    isActive={activeTab === tab}
+                    isSmall
+                    scroll={false}
+                >
                     {title}
                 </NavCard>
             </li>
@@ -54,6 +106,17 @@ export const Welcome = ({
     backgroundImage,
     icon,
 }: WelcomeProps) => {
+    const router = useRouter();
+    const { query } = router;
+
+    const [activeTab, setActiveTab] = React.useState('dynamic-discounting');
+
+    React.useEffect(() => {
+        if (query.tab) {
+            setActiveTab(query.tab as string);
+        }
+    }, [query]);
+
     return (
         <>
             <section className={styles.wrapper}>
@@ -80,7 +143,13 @@ export const Welcome = ({
 
             <section className={styles.navigationWrapper}>
                 <Layout.Container tag="div">
-                    <nav className={styles.nav}>{isHomePage ? <HomePageMenu /> : null}</nav>
+                    <nav
+                        className={cn(styles.nav, {
+                            [styles.home]: isHomePage,
+                        })}
+                    >
+                        {isHomePage ? <HomePageMenu /> : <TabsMenu activeTab={activeTab} />}
+                    </nav>
                 </Layout.Container>
             </section>
         </>

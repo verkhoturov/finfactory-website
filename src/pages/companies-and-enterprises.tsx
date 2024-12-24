@@ -6,6 +6,7 @@ import { SystemCapabilities } from '@/widgets/SystemCapabilities';
 import { Blog } from '@/widgets/Blog';
 import { FAQ } from '@/widgets/FAQ';
 import { CompEnterWelcome } from '@/widgets/CompEnterWelcome';
+import { ServiceInfo } from '@/widgets/ServiceInfo';
 
 export default function CompEnterPage() {
     return (
@@ -20,6 +21,7 @@ export default function CompEnterPage() {
                 <Header />
                 <Layout.Main>
                     <CompEnterWelcome />
+                    <ServiceInfo />
                     <SystemCapabilities />
                     <FAQ />
                     <Blog />

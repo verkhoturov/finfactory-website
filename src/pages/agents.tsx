@@ -6,6 +6,7 @@ import { SystemCapabilities } from '@/widgets/SystemCapabilities';
 import { Blog } from '@/widgets/Blog';
 import { FAQ } from '@/widgets/FAQ';
 import { AgentsWelcome } from '@/widgets/AgentsWelcome';
+import { ServiceInfo } from '@/widgets/ServiceInfo';
 
 export default function AgentsPage() {
     return (
@@ -20,6 +21,7 @@ export default function AgentsPage() {
                 <Header />
                 <Layout.Main>
                     <AgentsWelcome />
+                    <ServiceInfo />
                     <SystemCapabilities />
                     <FAQ />
                     <Blog />

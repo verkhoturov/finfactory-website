@@ -6,6 +6,7 @@ import { SystemCapabilities } from '@/widgets/SystemCapabilities';
 import { Blog } from '@/widgets/Blog';
 import { FAQ } from '@/widgets/FAQ';
 import { FinInstWelcome } from '@/widgets/FinInstWelcome';
+import { ServiceInfo } from '@/widgets/ServiceInfo';
 
 export default function FinInstPage() {
     return (
@@ -20,6 +21,7 @@ export default function FinInstPage() {
                 <Header />
                 <Layout.Main>
                     <FinInstWelcome />
+                    <ServiceInfo />
                     <SystemCapabilities />
                     <FAQ />
                     <Blog />

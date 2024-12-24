@@ -22,6 +22,42 @@
     gap: 10px;
 }
 
+.nav {
+    padding-top: 10px;
+}
+
+.nav > ul {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 20px;
+
+    list-style-type: none;
+}
+
+.nav a {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 14px;
+    color: white;
+    opacity: 0.5;
+    transition: 0.2s;
+}
+
+.nav a.active {
+    opacity: 1;
+}
+
+@media (max-width: 1189px) {
+    .nav > ul {
+        gap: 12px;
+    }
+
+    .nav a {
+        font-size: 10px;
+    }
+}
+
 @media (max-width: 1023px) {
     .wrapper {
         left: 0;
@@ -30,6 +66,10 @@
     }
 
     .buttons {
+        display: none;
+    }
+
+    .nav {
         display: none;
     }
 }

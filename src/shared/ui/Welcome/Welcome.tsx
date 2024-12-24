@@ -61,7 +61,7 @@ export const Welcome = ({
                     className={styles.bg}
                     style={{
                         backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
-                        backgroundPosition: isHomePage ? '105% -20px' : 'bottom right',
+                        backgroundPositionY: isHomePage ? '-20px' : 'bottom',
                     }}
                 />
                 <Layout.Container tag="div">

@@ -1,5 +1,5 @@
 .wrapper {
-    max-width: 1240px;
+    max-width: 100%;
     width: 100%;
     min-height: 554px;
 
@@ -24,7 +24,7 @@
     height: 100%;
 
     background-repeat: no-repeat;
-    background-position: 105% -20px;
+    background-position-x: calc((100% - 620px) / 2 + 620px);
 }
 
 .inner {

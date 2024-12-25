@@ -7,6 +7,7 @@ import { Blog } from '@/widgets/Blog';
 import { FAQ } from '@/widgets/FAQ';
 import { CorpHoldWelcome } from '@/widgets/CorpHoldWelcome';
 import { ServiceInfo } from '@/widgets/ServiceInfo';
+import { Profit } from '@/widgets/Profit';
 
 export default function CorpHoldPage() {
     return (
@@ -22,6 +23,7 @@ export default function CorpHoldPage() {
                 <Layout.Main>
                     <CorpHoldWelcome />
                     <ServiceInfo />
+                    <Profit />
                     <SystemCapabilities />
                     <FAQ />
                     <Blog />

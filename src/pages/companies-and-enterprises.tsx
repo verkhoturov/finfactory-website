@@ -7,6 +7,7 @@ import { Blog } from '@/widgets/Blog';
 import { FAQ } from '@/widgets/FAQ';
 import { CompEnterWelcome } from '@/widgets/CompEnterWelcome';
 import { ServiceInfo } from '@/widgets/ServiceInfo';
+import { Profit } from '@/widgets/Profit';
 
 export default function CompEnterPage() {
     return (
@@ -22,6 +23,7 @@ export default function CompEnterPage() {
                 <Layout.Main>
                     <CompEnterWelcome />
                     <ServiceInfo />
+                    <Profit />
                     <SystemCapabilities />
                     <FAQ />
                     <Blog />

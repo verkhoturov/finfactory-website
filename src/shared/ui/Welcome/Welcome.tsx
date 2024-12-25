@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Layout } from '@/shared/ui/Layout';
 import { Heading } from '@/shared/ui/Heading';
 import { NavCard } from '@/shared/ui/NavCard';
+import { Select } from '@/shared/ui/Select';
 
 import styles from './Welcome.module.css';
 
@@ -35,27 +36,22 @@ const tabsCommonMenu = [
     {
         title: 'Биржа факторинга',
         tab: 'factor-broker',
-        isDisabled: true,
     },
     {
         title: 'Аукцион дисконтирования',
         tab: 'auction-discounting',
-        isDisabled: true,
     },
     {
         title: 'Финансирование покупателей',
         tab: 'buyers-financing',
-        isDisabled: true,
     },
     {
         title: 'Цифровой двойник цепочки поставок',
         tab: 'digital-doubloon-supply-chain',
-        isDisabled: true,
     },
     {
         title: 'Верификация',
         tab: 'verification',
-        isDisabled: true,
     },
 ];
 
@@ -73,15 +69,9 @@ const HomePageMenu = () => (
 
 const TabsMenu = ({ activeTab }: { activeTab: string }) => (
     <ul>
-        {tabsCommonMenu.map(({ title, tab, isDisabled }) => (
+        {tabsCommonMenu.map(({ title, tab }) => (
             <li key={title}>
-                <NavCard
-                    href={`?tab=${tab}`}
-                    isDisabled={isDisabled}
-                    isActive={activeTab === tab}
-                    isSmall
-                    scroll={false}
-                >
+                <NavCard href={`?tab=${tab}`} isActive={activeTab === tab} isSmall scroll={false}>
                     {title}
                 </NavCard>
             </li>
@@ -141,7 +131,11 @@ export const Welcome = ({
                 </Layout.Container>
             </section>
 
-            <section className={styles.navigationWrapper}>
+            <section
+                className={cn(styles.navigationWrapper, {
+                    [styles.home]: isHomePage,
+                })}
+            >
                 <Layout.Container tag="div">
                     <nav
                         className={cn(styles.nav, {
@@ -150,6 +144,19 @@ export const Welcome = ({
                     >
                         {isHomePage ? <HomePageMenu /> : <TabsMenu activeTab={activeTab} />}
                     </nav>
+
+                    <div
+                        className={cn(styles.navSelectWrapper, {
+                            [styles.home]: isHomePage,
+                        })}
+                    >
+                        <Select
+                            items={tabsCommonMenu.map(({ title, tab }) => ({
+                                label: title,
+                                value: tab,
+                            }))}
+                        />
+                    </div>
                 </Layout.Container>
             </section>
         </>

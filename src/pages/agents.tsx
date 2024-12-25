@@ -7,6 +7,7 @@ import { Blog } from '@/widgets/Blog';
 import { FAQ } from '@/widgets/FAQ';
 import { AgentsWelcome } from '@/widgets/AgentsWelcome';
 import { ServiceInfo } from '@/widgets/ServiceInfo';
+import { Profit } from '@/widgets/Profit';
 
 export default function AgentsPage() {
     return (
@@ -22,6 +23,7 @@ export default function AgentsPage() {
                 <Layout.Main>
                     <AgentsWelcome />
                     <ServiceInfo />
+                    <Profit />
                     <SystemCapabilities />
                     <FAQ />
                     <Blog />

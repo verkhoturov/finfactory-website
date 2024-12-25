@@ -1,0 +1,55 @@
+.wrapper {
+    padding-top: 30px;
+    padding-bottom: 60px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.card {
+    border: 4px solid #e2ecf7;
+    padding: 40px;
+
+    max-width: 496px;
+    width: 100%;
+    min-height: 327px;
+    border-radius: 2px;
+}
+
+.card > h2 {
+    margin-bottom: 16px;
+}
+
+.card > ul > li {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21.09px;
+
+    margin-bottom: 18px;
+}
+
+.card > ul {
+    list-style-type: initial;
+    padding-left: 16px;
+}
+
+@media (max-width: 1023px) {
+    .row {
+        flex-direction: column;
+    }
+
+    .card {
+        max-width: 100%;
+        min-height: auto;
+        padding: 20px;
+    }
+
+    .card > ul > li {
+        font-size: 14px;
+        line-height: 15px;
+        margin-bottom: 12px;
+    }
+}

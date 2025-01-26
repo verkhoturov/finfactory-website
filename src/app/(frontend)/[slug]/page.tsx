@@ -72,7 +72,7 @@ export default async function Page({ params: paramsPromise }: Args) {
     // </article>
     // )
 
-    // console.log('home page', page);
+    console.log('home page', page);
 
     return <Home {...page} />;
 }

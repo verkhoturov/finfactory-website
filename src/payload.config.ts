@@ -95,7 +95,11 @@ export default buildConfig({
         supportedLanguages: { ru },
         fallbackLanguage: 'en',
     },
-
+    upload: {
+        limits: {
+            fileSize: 5000000, // 5MB, written in bytes
+        },
+    },
     /*
     email: nodemailerAdapter({
         defaultFromAddress: process.env.INFO_EMAIL || '',

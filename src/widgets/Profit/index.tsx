@@ -1,1 +1,0 @@
-export { Profit } from './Profit';

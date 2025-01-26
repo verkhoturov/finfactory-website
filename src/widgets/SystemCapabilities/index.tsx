@@ -1,1 +1,0 @@
-export { SystemCapabilities } from './SystemCapabilities';

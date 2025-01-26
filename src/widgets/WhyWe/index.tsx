@@ -1,1 +1,0 @@
-export { WhyWe } from './WhyWe';

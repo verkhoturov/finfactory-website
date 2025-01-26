@@ -1,0 +1,164 @@
+.wrapper {
+    max-width: 100%;
+    width: 100%;
+    min-height: 554px;
+
+    background: linear-gradient(288.8deg, #003882 -1.43%, #22589f 100%);
+    border-radius: 4px;
+
+    margin: 0 auto;
+    padding: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    position: relative;
+}
+
+.bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-repeat: no-repeat;
+    /* background-position-x: calc((100% - 620px) / 2 + 620px); */
+    background-position-x: right;
+}
+
+.inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 50px;
+
+    min-height: 245px;
+}
+
+.inner > h1,
+.inner > h2 {
+    text-transform: uppercase;
+}
+
+.inner > h1 {
+    line-height: 64px;
+}
+
+.desc {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16.41px;
+    opacity: 0.3;
+    color: white;
+    white-space: pre-wrap;
+    display: inline-block;
+}
+
+.descWrapper {
+    position: absolute;
+    right: 20px;
+    top: 0;
+}
+
+.navigationWrapper {
+    position: relative;
+    top: -90px;
+
+    padding: 0 16px;
+}
+
+.nav > ul {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 12px;
+
+    list-style-type: none;
+}
+
+.nav.home > ul {
+    gap: 16px;
+}
+
+.icon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.navSelectWrapper {
+    display: none;
+}
+
+@media (max-width: 1023px) {
+    .icon {
+        display: none;
+    }
+
+    .inner {
+        padding-top: 30px;
+        padding-bottom: 0;
+        gap: 0;
+        min-height: auto;
+    }
+
+    .inner > h2 {
+        font-size: 16px;
+    }
+
+    .inner > h1 {
+        line-height: 42px;
+    }
+
+    .wrapper {
+        min-height: 387px;
+        padding: 0;
+    }
+
+    .descWrapper {
+        right: 0;
+        top: -24px;
+    }
+
+    .desc {
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 12px;
+    }
+
+    .navSelectWrapper {
+        display: block;
+    }
+
+    .navSelectWrapper.home {
+        display: none;
+    }
+
+    .nav {
+        display: none;
+    }
+
+    .nav.home {
+        display: block;
+    }
+
+    .nav > ul {
+        flex-wrap: wrap;
+    }
+
+    .nav > ul > li {
+        width: calc(50% - 8px);
+    }
+
+    .navigationWrapper {
+        padding: 0;
+        top: -30px;
+    }
+
+    .navigationWrapper.home {
+        top: -50px;
+    }
+}

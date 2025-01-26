@@ -19,12 +19,15 @@ import type { ProductsPage as ProductsPageType, HomePage as HomePageType } from 
 import { seoPlugin } from '@payloadcms/plugin-seo';
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types';
 
-import { getServerSideURL } from '@/utils/getURL';
+import { getServerSideURL } from '@/shared/utils/getURL';
 
 type Page = ProductsPageType | HomePageType;
 
 const generateTitle: GenerateTitle<Page> = ({ doc }) => {
-    return doc?.title ? `${doc.title} | Finfactory` : 'Finfactory';
+    if ('title' in doc) {
+        return doc.title ? `${doc.title} | Finfactory` : 'Finfactory';
+    }
+    return 'Finfactory';
 };
 
 const generateURL: GenerateURL<Page> = ({ doc }) => {

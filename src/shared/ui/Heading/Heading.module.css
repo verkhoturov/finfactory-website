@@ -1,0 +1,48 @@
+.h1 {
+    font-size: 62px;
+    font-weight: 900;
+    line-height: 64px;
+    letter-spacing: 0.05em;
+    white-space: pre-wrap;
+}
+
+.h2 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28.13px;
+    white-space: pre-wrap;
+}
+
+.h3 {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    white-space: pre-wrap;
+}
+
+.dark {
+    color: black;
+}
+
+.light {
+    color: white;
+}
+
+@media (max-width: 1023px) {
+    .h1 {
+        font-size: 34px;
+        line-height: 44px;
+    }
+
+    .h2 {
+        font-size: 22px;
+        line-height: 26px;
+    }
+}
+
+@media (max-width: 389px) {
+    .h1 {
+        font-size: 26px;
+        line-height: 34px;
+    }
+}

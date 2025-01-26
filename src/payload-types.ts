@@ -102,7 +102,7 @@ export interface User {
  */
 export interface Media {
   id: string;
-  alt: string;
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -264,7 +264,90 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface HomePage {
   id: string;
-  title: string;
+  welcome: {
+    title: string;
+    description?: string | null;
+  };
+  navigation: {
+    link_1: {
+      text: string;
+      link: string;
+      icon: string | Media;
+    };
+    link_2: {
+      text: string;
+      link: string;
+      icon: string | Media;
+    };
+    link_3: {
+      text: string;
+      link: string;
+      icon: string | Media;
+    };
+    link_4: {
+      text: string;
+      link: string;
+      icon: string | Media;
+    };
+  };
+  advantages?: {
+    title?: string | null;
+    list?:
+      | {
+          text: string;
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  products?: {
+    title?: string | null;
+    list?:
+      | {
+          product: {
+            title: string;
+            list?:
+              | {
+                  text: string;
+                  image: string | Media;
+                  id?: string | null;
+                }[]
+              | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  partners?: {
+    title?: string | null;
+    list?:
+      | {
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  system_capabilities?: {
+    title?: string | null;
+    list?:
+      | {
+          title: string;
+          text: string;
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  faq?: {
+    title?: string | null;
+    list?:
+      | {
+          title: string;
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -278,7 +361,114 @@ export interface HomePage {
  * via the `definition` "home-page_select".
  */
 export interface HomePageSelect<T extends boolean = true> {
-  title?: T;
+  welcome?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  navigation?:
+    | T
+    | {
+        link_1?:
+          | T
+          | {
+              text?: T;
+              link?: T;
+              icon?: T;
+            };
+        link_2?:
+          | T
+          | {
+              text?: T;
+              link?: T;
+              icon?: T;
+            };
+        link_3?:
+          | T
+          | {
+              text?: T;
+              link?: T;
+              icon?: T;
+            };
+        link_4?:
+          | T
+          | {
+              text?: T;
+              link?: T;
+              icon?: T;
+            };
+      };
+  advantages?:
+    | T
+    | {
+        title?: T;
+        list?:
+          | T
+          | {
+              text?: T;
+              image?: T;
+              id?: T;
+            };
+      };
+  products?:
+    | T
+    | {
+        title?: T;
+        list?:
+          | T
+          | {
+              product?:
+                | T
+                | {
+                    title?: T;
+                    list?:
+                      | T
+                      | {
+                          text?: T;
+                          image?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+            };
+      };
+  partners?:
+    | T
+    | {
+        title?: T;
+        list?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+      };
+  system_capabilities?:
+    | T
+    | {
+        title?: T;
+        list?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              image?: T;
+              id?: T;
+            };
+      };
+  faq?:
+    | T
+    | {
+        title?: T;
+        list?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
   meta?:
     | T
     | {

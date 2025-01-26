@@ -1,30 +1,29 @@
-// import type { Metadata } from 'next'
-
-// import { cn } from '@/utilities/ui'
-// import { GeistMono } from 'geist/font/mono'
-// import { GeistSans } from 'geist/font/sans'
 import React from 'react';
-
-/*
-import { AdminBar } from '@/components/AdminBar'
-import { Footer } from '@/Footer/Component'
-import { Header } from '@/Header/Component'
-import { Providers } from '@/providers'
-import { InitTheme } from '@/providers/Theme/InitTheme'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-*/
-
-// import { draftMode } from 'next/headers'
+import { Roboto } from 'next/font/google';
+import { UIKitProvider } from '@/shared/ui/UIKitProvider';
+import { Layout } from '@/shared/ui/Layout';
+import { Header } from '@/widgets/Header';
+import { Footer } from '@/widgets/Footer';
 
 import './globals.css';
-// import { getServerSideURL } from '@/utilities/getURL'
+
+const roboto = Roboto({
+    weight: ['400', '700', '900'],
+    subsets: ['latin'],
+});
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-    // const { isEnabled } = await draftMode()
-
     return (
-        <html lang="ru" suppressHydrationWarning>
-            <body>{children}</body>
+        <html lang="ru" suppressHydrationWarning className={roboto.className}>
+            <body>
+                <UIKitProvider>
+                    <Layout.Page>
+                        <Header />
+                        <Layout.Main>{children}</Layout.Main>
+                        <Footer />
+                    </Layout.Page>
+                </UIKitProvider>
+            </body>
         </html>
     );
 }

@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload';
 
-import { authenticated } from '../access/authenticated';
-import { authenticatedOrPublished } from '../access/authenticatedOrPublished';
+import { authenticated } from '../shared/utils/access/authenticated';
+import { authenticatedOrPublished } from '../shared/utils/access/authenticatedOrPublished';
 
 /*
 import { Archive } from '../../blocks/ArchiveBlock/config'
@@ -14,7 +14,7 @@ import { slugField } from '@/fields/slug'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 */
-import { populatePublishedAt } from '@/utils/populatePublishedAt';
+import { populatePublishedAt } from '@/shared/utils/populatePublishedAt';
 
 import {
     MetaDescriptionField,

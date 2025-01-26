@@ -5,11 +5,12 @@ import { Footer } from '@/widgets/Footer';
 import { SystemCapabilities } from '@/widgets/SystemCapabilities';
 import { Blog } from '@/widgets/Blog';
 import { FAQ } from '@/widgets/FAQ';
-import { AgentsWelcome } from '@/widgets/AgentsWelcome';
+import { FinInstWelcome } from '@/widgets/FinInstWelcome';
 import { ServiceInfo } from '@/widgets/ServiceInfo';
 import { Profit } from '@/widgets/Profit';
+import { Suspense } from 'react';
 
-export default function AgentsPage() {
+export default function FinInstPage() {
     return (
         <>
             <Head>
@@ -21,8 +22,10 @@ export default function AgentsPage() {
             <Layout.Page>
                 <Header />
                 <Layout.Main>
-                    <AgentsWelcome />
-                    <ServiceInfo />
+                    <FinInstWelcome />
+                    <Suspense>
+                        <ServiceInfo />
+                    </Suspense>
                     <Profit />
                     <SystemCapabilities />
                     <FAQ />

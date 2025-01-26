@@ -1,4 +1,5 @@
 import { Welcome } from '@/shared/ui/Welcome';
+import { Suspense } from 'react';
 import type { HomePage as HomePageProps } from '@/payload-types';
 
 import bgImg from './img/bg.svg';
@@ -9,12 +10,14 @@ export const HomeWelcome = ({ welcome, navigation }: HomeWelcomeProps) => {
     const { title, description } = welcome;
 
     return (
-        <Welcome
-            title={title}
-            desc={description}
-            isHomePage
-            backgroundImage={bgImg.src}
-            navigationList={{ navigation }}
-        />
+        <Suspense>
+            <Welcome
+                title={title}
+                desc={description}
+                isHomePage
+                backgroundImage={bgImg.src}
+                navigationList={{ navigation }}
+            />
+        </Suspense>
     );
 };

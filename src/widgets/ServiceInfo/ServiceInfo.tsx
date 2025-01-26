@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Layout } from '@/shared/ui/Layout';
 import { Heading } from '@/shared/ui/Heading';
 import { Button } from '@/shared/ui/Button';
@@ -46,10 +48,8 @@ const tabs: Record<string, React.ReactNode> = {
 };
 
 export const ServiceInfo = () => {
-    const router = useRouter();
-    const {
-        query: { tab },
-    } = router;
+    const searchParams = useSearchParams();
+    const tab = searchParams?.get('tab');
 
     const activeTab = tab || 'dynamic-discounting';
 

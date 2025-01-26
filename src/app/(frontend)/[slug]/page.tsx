@@ -5,7 +5,7 @@ import configPromise from '@payload-config';
 import { getPayload } from 'payload';
 import { draftMode } from 'next/headers';
 import React, { cache } from 'react';
-import { Home } from '@/pages/home';
+import { Home } from '@/page-templates/home';
 // import { homeStatic } from '@/endpoints/seed/home-static'
 
 import type { ProductsPage as ProductsPageType, HomePage as HomePageType } from '@/payload-types';
@@ -44,7 +44,7 @@ export default async function Page({ params: paramsPromise }: Args) {
             return notFound();
         }
 
-        console.log('products page', page);
+        //  console.log('products page', page);
 
         return <article>slug: {slug}</article>;
     }
@@ -72,7 +72,7 @@ export default async function Page({ params: paramsPromise }: Args) {
     // </article>
     // )
 
-    console.log('home page', page);
+    // console.log('home page', page);
 
     return <Home {...page} />;
 }

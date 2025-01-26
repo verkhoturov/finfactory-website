@@ -5,11 +5,12 @@ import { Footer } from '@/widgets/Footer';
 import { SystemCapabilities } from '@/widgets/SystemCapabilities';
 import { Blog } from '@/widgets/Blog';
 import { FAQ } from '@/widgets/FAQ';
-import { CorpHoldWelcome } from '@/widgets/CorpHoldWelcome';
+import { CompEnterWelcome } from '@/widgets/CompEnterWelcome';
 import { ServiceInfo } from '@/widgets/ServiceInfo';
 import { Profit } from '@/widgets/Profit';
+import { Suspense } from 'react';
 
-export default function CorpHoldPage() {
+export default function CompEnterPage() {
     return (
         <>
             <Head>
@@ -21,8 +22,10 @@ export default function CorpHoldPage() {
             <Layout.Page>
                 <Header />
                 <Layout.Main>
-                    <CorpHoldWelcome />
-                    <ServiceInfo />
+                    <CompEnterWelcome />
+                    <Suspense>
+                        <ServiceInfo />
+                    </Suspense>
                     <Profit />
                     <SystemCapabilities />
                     <FAQ />

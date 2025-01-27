@@ -11,6 +11,10 @@ const nextConfig = {
       {
         hostname: 'localhost',
       },
+      {
+        protocol: 'https',
+        hostname: 'finfactory-website.vercel.app',
+      },
     ],
   },
 }

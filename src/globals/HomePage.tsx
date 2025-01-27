@@ -148,7 +148,7 @@ const FAQListFields: Field[] = [
 
 export const HomePage: GlobalConfig = {
     slug: 'home-page',
-    label: 'Главная',
+    label: 'Главная страница',
     access: {
         read: authenticatedOrPublished,
         update: authenticated,

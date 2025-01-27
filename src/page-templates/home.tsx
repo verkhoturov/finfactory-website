@@ -12,7 +12,7 @@ export const Home = (props: HomePageProps) => {
     return (
         <>
             <HomeWelcome welcome={props.welcome} navigation={props.navigation} />
-            <WhyWe />
+            <WhyWe advantages={props.advantages} />
             <Products />
             <Partners />
             <SystemCapabilities />

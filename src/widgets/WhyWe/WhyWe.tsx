@@ -2,37 +2,30 @@ import { Layout } from '@/shared/ui/Layout';
 import { Heading } from '@/shared/ui/Heading';
 import { SimpleCard } from '@/shared/ui/SimpleCard';
 
-import styles from './WhyWe.module.css';
-import oneImg from './img/1.jpg';
-import twoImg from './img/2.jpg';
-import threeImg from './img/3.jpg';
+import type { HomePage as HomePageType, Media } from '@/payload-types';
 
-export const WhyWe = () => {
+import styles from './WhyWe.module.css';
+
+type WhyWeProps = Pick<HomePageType, 'advantages'>;
+
+export const WhyWe = ({ advantages }: WhyWeProps) => {
     return (
         <Layout.Container>
             <div className={styles.wrapper}>
-                <Heading.H2>Почему именно мы</Heading.H2>
+                {advantages?.title && <Heading.H2>{advantages.title}</Heading.H2>}
 
                 <div className={styles.row}>
-                    <SimpleCard
-                        image={oneImg}
-                        desc={`Финансовые продукты
-                                кастомизированы под ваш
-                                бизнес`}
-                    />
-                    <SimpleCard
-                        image={twoImg}
-                        desc={`Эксперты и аналитики
-                                сопровождают и консультируют
-                                вас на каждом этапе`}
-                    />
-
-                    <SimpleCard
-                        image={threeImg}
-                        desc={`Банки конкурируют
-                                друг с другом и предлагают
-                                лучшие решения`}
-                    />
+                    {advantages?.list?.map((item, index) => (
+                        <SimpleCard
+                            key={index}
+                            image={{
+                                src: (item.image as Media).url || '',
+                                width: (item.image as Media).width || 100,
+                                height: (item.image as Media).height || 100,
+                            }}
+                            desc={item.text}
+                        />
+                    ))}
                 </div>
             </div>
         </Layout.Container>

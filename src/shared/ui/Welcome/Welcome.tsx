@@ -7,11 +7,11 @@ import { Layout } from '@/shared/ui/Layout';
 import { Heading } from '@/shared/ui/Heading';
 import { NavCard } from '@/shared/ui/NavCard';
 import { Select } from '@/shared/ui/Select';
-import type { HomePage as HomePageProps, Media } from '@/payload-types';
+import type { HomePage as HomePageType, Media } from '@/payload-types';
 
 import styles from './Welcome.module.css';
 
-type NavType = Pick<HomePageProps, 'navigation'>;
+type NavType = Pick<HomePageType, 'navigation'>;
 
 const tabsCommonMenu = [
     {

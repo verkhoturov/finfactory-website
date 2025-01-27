@@ -6,6 +6,13 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ["@chakra-ui/react"],
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'localhost',
+      },
+    ],
+  },
 }
 
 export default withPayload(nextConfig)

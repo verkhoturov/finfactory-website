@@ -44,6 +44,9 @@
 
     top: -16px;
     left: 37px;
+
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .logos {

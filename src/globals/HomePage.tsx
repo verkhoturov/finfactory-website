@@ -92,23 +92,39 @@ const ProductsFields: Field[] = [
 
 const SystemCapabilitiesFields: Field[] = [
     {
-        name: 'title',
-        label: 'Заголовок',
-        type: 'text',
-        required: true,
-    },
-    {
-        name: 'text',
-        label: 'Текст',
-        type: 'text',
-        required: true,
-    },
-    {
         name: 'image',
         label: 'Иконка',
         type: 'upload',
         relationTo: 'media',
         required: true,
+    },
+    {
+        name: 'title',
+        label: 'Заголовок',
+        type: 'textarea',
+        required: true,
+    },
+    {
+        name: 'text',
+        label: 'Описание',
+        type: 'textarea',
+        required: true,
+    },
+    {
+        name: 'logos',
+        label: 'Логотипы',
+        type: 'array',
+        admin: {
+            description: 'Логотипы партнеров (не обязательно)',
+        },
+        fields: [
+            {
+                name: 'image',
+                label: 'Лого',
+                type: 'upload',
+                relationTo: 'media',
+            },
+        ],
     },
 ];
 
@@ -124,6 +140,9 @@ const FAQListFields: Field[] = [
         label: 'Ответ',
         type: 'textarea',
         required: true,
+        admin: {
+            rows: 5,
+        },
     },
 ];
 

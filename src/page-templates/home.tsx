@@ -13,9 +13,9 @@ export const Home = (props: HomePageProps) => {
         <>
             <HomeWelcome welcome={props.welcome} navigation={props.navigation} />
             <WhyWe advantages={props.advantages} />
-            <Products />
-            <Partners />
-            <SystemCapabilities />
+            <Products products={props.products} />
+            <Partners partners={props.partners} />
+            <SystemCapabilities system_capabilities={props.system_capabilities} />
             <FAQ />
             <Blog />
         </>

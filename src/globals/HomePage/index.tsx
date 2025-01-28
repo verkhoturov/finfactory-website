@@ -1,6 +1,6 @@
-import type { GlobalConfig, Field } from 'payload';
-import { authenticated } from '../shared/utils/access/authenticated';
-import { authenticatedOrPublished } from '../shared/utils/access/authenticatedOrPublished';
+import type { GlobalConfig } from 'payload';
+import { authenticated } from '@/shared/utils/access/authenticated';
+import { authenticatedOrPublished } from '@/shared/utils/access/authenticatedOrPublished';
 
 import {
     MetaDescriptionField,
@@ -9,142 +9,13 @@ import {
     PreviewField,
 } from '@payloadcms/plugin-seo/fields';
 
-const NavLinkFields: Field[] = [
-    {
-        name: 'text',
-        label: 'Текст',
-        type: 'textarea',
-        required: true,
-    },
-    {
-        name: 'link',
-        label: 'Ссылка',
-        type: 'text',
-        required: true,
-    },
-    {
-        name: 'icon',
-        label: 'Иконка',
-        type: 'upload',
-        relationTo: 'media',
-        required: true,
-    },
-];
-
-const AdvantagesFields: Field[] = [
-    {
-        name: 'text',
-        label: 'Текст',
-        type: 'text',
-        required: true,
-    },
-    {
-        name: 'image',
-        label: 'Изображение',
-        type: 'upload',
-        relationTo: 'media',
-        required: true,
-    },
-];
-
-const ProductsFields: Field[] = [
-    {
-        name: 'product',
-        label: 'Продукт',
-        type: 'group',
-        fields: [
-            {
-                name: 'title',
-                label: 'Заголовок',
-                type: 'text',
-                required: true,
-            },
-
-            {
-                type: 'array',
-                name: 'list',
-                label: 'Подробнее',
-                labels: {
-                    singular: 'Пункт',
-                    plural: 'Пункты',
-                },
-                minRows: 1,
-                maxRows: 9,
-                fields: [
-                    {
-                        name: 'text',
-                        label: 'Текст',
-                        type: 'text',
-                        required: true,
-                    },
-                    {
-                        name: 'image',
-                        label: 'Иконка',
-                        type: 'upload',
-                        relationTo: 'media',
-                        required: true,
-                    },
-                ],
-            },
-        ],
-    },
-];
-
-const SystemCapabilitiesFields: Field[] = [
-    {
-        name: 'image',
-        label: 'Иконка',
-        type: 'upload',
-        relationTo: 'media',
-        required: true,
-    },
-    {
-        name: 'title',
-        label: 'Заголовок',
-        type: 'textarea',
-        required: true,
-    },
-    {
-        name: 'text',
-        label: 'Описание',
-        type: 'textarea',
-        required: true,
-    },
-    {
-        name: 'logos',
-        label: 'Логотипы',
-        type: 'array',
-        admin: {
-            description: 'Логотипы партнеров (не обязательно)',
-        },
-        fields: [
-            {
-                name: 'image',
-                label: 'Лого',
-                type: 'upload',
-                relationTo: 'media',
-            },
-        ],
-    },
-];
-
-const FAQListFields: Field[] = [
-    {
-        name: 'title',
-        label: 'Вопрос',
-        type: 'text',
-        required: true,
-    },
-    {
-        name: 'text',
-        label: 'Ответ',
-        type: 'textarea',
-        required: true,
-        admin: {
-            rows: 5,
-        },
-    },
-];
+import {
+    NavLinkFields,
+    AdvantagesFields,
+    ProductsFields,
+    FAQListFields,
+    SystemCapabilitiesFields,
+} from './fields';
 
 export const HomePage: GlobalConfig = {
     slug: 'home-page',
@@ -370,21 +241,17 @@ export const HomePage: GlobalConfig = {
         },
     ],
     versions: {
-        drafts: true,
-        max: 10,
-    },
-    /*
-    admin: {
-        livePreview: {
-            url: ({ data, req }) => {
-                console.log('url data', data);
-                return `${req.protocol}//${req.host}/preview?home`;
+        drafts: {
+            autosave: {
+                interval: 375,
             },
         },
-        preview: (data, { req }) => {
-            console.log('preview data', data);
-            return `${req.protocol}//${req.host}/preview?home`;
-        },
+        max: 50,
     },
-    */
+    admin: {
+        livePreview: {
+            url: ({ req }) => `${req.protocol}//${req.host}/preview/home`,
+        },
+        preview: (_, { req }) => `${req.protocol}//${req.host}/preview/home`,
+    },
 };

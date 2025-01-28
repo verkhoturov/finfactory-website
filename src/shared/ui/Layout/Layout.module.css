@@ -5,6 +5,7 @@
 
 .main {
     padding: 20px;
+    min-height: 50vh;
 }
 
 .container {

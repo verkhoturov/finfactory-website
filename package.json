@@ -22,6 +22,7 @@
     "@emotion/styled": "^11.14.0",
     "@payloadcms/db-mongodb": "latest",
     "@payloadcms/email-nodemailer": "^3.19.0",
+    "@payloadcms/live-preview-react": "^3.19.0",
     "@payloadcms/next": "latest",
     "@payloadcms/payload-cloud": "latest",
     "@payloadcms/plugin-seo": "^3.19.0",

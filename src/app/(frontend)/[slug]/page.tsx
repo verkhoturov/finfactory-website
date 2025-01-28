@@ -28,8 +28,10 @@ type Args = {
 };
 
 export default async function Page({ params: paramsPromise }: Args) {
-    // const { isEnabled: draft } = await draftMode()
+    const { isEnabled: draft } = await draftMode();
     const { slug } = await paramsPromise;
+
+    console.log('is draft', draft);
 
     // const url = '/' + slug
 
@@ -72,7 +74,7 @@ export default async function Page({ params: paramsPromise }: Args) {
     // </article>
     // )
 
-    console.log('home page', page);
+    // console.log('home page', page);
 
     return <Home {...page} />;
 }
@@ -113,8 +115,7 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
     return result.docs?.[0] || null;
 });
 
-const queryHomePage = cache(async () => {
-    const { isEnabled: draft } = await draftMode();
+const queryHomePage = cache(async (draft?: boolean) => {
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.findGlobal({

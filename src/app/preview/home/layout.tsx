@@ -12,6 +12,10 @@ const roboto = Roboto({
     subsets: ['latin'],
 });
 
+export const metadata = {
+    title: 'Черновик',
+};
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="ru" suppressHydrationWarning className={roboto.className}>

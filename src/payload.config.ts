@@ -49,7 +49,6 @@ export default buildConfig({
         importMap: {
             baseDir: path.resolve(dirname),
         },
-        /*
         livePreview: {
             breakpoints: [
                 {
@@ -72,7 +71,6 @@ export default buildConfig({
                 },
             ],
         },
-        */
     },
     collections: [ProductsPages, Users, Media],
     globals: [HomePage],

@@ -251,7 +251,7 @@ export const HomePage: GlobalConfig = {
     admin: {
         livePreview: {
             url: ({ req }) => {
-                const protocol = req.host.includes('localhost') ? 'http' : 'https';
+                const protocol = req.host.includes('localhost') ? 'http:' : 'https:';
                 return `${protocol}//${req.host}/preview/home`},
         },
         preview: (_, { req }) => `${req.protocol}//${req.host}/preview/home`,

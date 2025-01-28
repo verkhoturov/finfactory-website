@@ -9,7 +9,7 @@ import styles from './Header.module.css';
 
 export const Header = () => {
     const pathname = usePathname();
-    const isHomePage = pathname === '/';
+    const isHomePage = pathname === '/' || pathname === '/preview/home';
 
     return (
         <header className={styles.wrapper}>

@@ -32,9 +32,13 @@ export interface Config {
   };
   globals: {
     'home-page': HomePage;
+    header: Header;
+    footer: Footer;
   };
   globalsSelect: {
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
+    header: HeaderSelect<false> | HeaderSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: null;
   user: User & {
@@ -367,6 +371,51 @@ export interface HomePage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header".
+ */
+export interface Header {
+  id: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: string;
+  nav?:
+    | {
+        list: {
+          title: string;
+          links?:
+            | {
+                text: string;
+                link: string;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  social?:
+    | {
+        network: {
+          link: string;
+          image: string | Media;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  info?: string | null;
+  additional_info?: string | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-page_select".
  */
 export interface HomePageSelect<T extends boolean = true> {
@@ -490,6 +539,55 @@ export interface HomePageSelect<T extends boolean = true> {
         title?: T;
         description?: T;
       };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header_select".
+ */
+export interface HeaderSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  nav?:
+    | T
+    | {
+        list?:
+          | T
+          | {
+              title?: T;
+              links?:
+                | T
+                | {
+                    text?: T;
+                    link?: T;
+                    id?: T;
+                  };
+            };
+        id?: T;
+      };
+  social?:
+    | T
+    | {
+        network?:
+          | T
+          | {
+              link?: T;
+              image?: T;
+            };
+        id?: T;
+      };
+  info?: T;
+  additional_info?: T;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;

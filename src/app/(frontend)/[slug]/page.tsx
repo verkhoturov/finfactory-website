@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 // import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config';
 import { getPayload } from 'payload';
-import { draftMode } from 'next/headers';
 import React, { cache } from 'react';
 import { Home } from '@/page-templates/home';
 // import { homeStatic } from '@/endpoints/seed/home-static'
@@ -28,10 +27,7 @@ type Args = {
 };
 
 export default async function Page({ params: paramsPromise }: Args) {
-    const { isEnabled: draft } = await draftMode();
     const { slug } = await paramsPromise;
-
-    console.log('is draft', draft);
 
     // const url = '/' + slug
 
@@ -95,8 +91,6 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 }
 
 const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
-    // const { isEnabled: draft } = await draftMode()
-
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.find({
@@ -115,12 +109,11 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
     return result.docs?.[0] || null;
 });
 
-const queryHomePage = cache(async (draft?: boolean) => {
+const queryHomePage = cache(async () => {
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.findGlobal({
         slug: 'home-page',
-        draft,
     });
 
     return result || null;

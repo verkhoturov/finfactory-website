@@ -14,6 +14,8 @@ import { Media } from './collections/Media';
 import { ProductsPages } from './collections/ProductsPages';
 
 import { HomePage } from './globals/HomePage';
+import { Header } from './globals/Header';
+import { Footer } from './globals/Footer';
 
 import type { ProductsPage as ProductsPageType, HomePage as HomePageType } from '@/payload-types';
 import { seoPlugin } from '@payloadcms/plugin-seo';
@@ -73,7 +75,7 @@ export default buildConfig({
         },
     },
     collections: [ProductsPages, Users, Media],
-    globals: [HomePage],
+    globals: [HomePage, Header, Footer],
     editor: lexicalEditor(),
     secret: process.env.PAYLOAD_SECRET || '',
     typescript: {

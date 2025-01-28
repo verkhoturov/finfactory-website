@@ -1,57 +1,50 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Layout } from '@/shared/ui/Layout';
 import { Logo } from '@/shared/ui/Logo';
-import { Icons } from '@/shared/ui/Icons';
 import { Heading } from '@/shared/ui/Heading';
 import { Input } from '@/shared/ui/Input';
 import { Button } from '@/shared/ui/Button';
 
+import type { Footer as FooterProps, Media } from '@/payload-types';
+
 import styles from './Footer.module.css';
 
-const NavigationList = ({ title }: { title: string }) => {
+const NavigationList = ({
+    title,
+    links,
+}: {
+    title: string;
+    links?:
+        | {
+              text: string;
+              link: string;
+              id?: string | null;
+          }[]
+        | null;
+}) => {
+    if (!links) return null;
+
     return (
         <div className={styles.navCol}>
             <Heading.H3 color="light">{title}</Heading.H3>
 
             <nav className={styles.nav}>
                 <ul>
-                    <li>
-                        <Link href={'#'} className={styles.link}>
-                            Динамическое дисконтирование
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href={'#'} className={styles.link}>
-                            Система гибких расчетных дат
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href={'#'} className={styles.link}>
-                            Аукцион дисконтирования
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href={'#'} className={styles.link}>
-                            Финансирование покупателей
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href={'#'} className={styles.link}>
-                            Биржа факторинга
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href={'#'} className={styles.link}>
-                            Верификация
-                        </Link>
-                    </li>
+                    {links.map(({ text, link, id }, i) => (
+                        <li key={id || i}>
+                            <Link href={link} className={styles.link}>
+                                {text}
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
             </nav>
         </div>
     );
 };
 
-export const Footer = () => {
+export const Footer = ({ nav, info, additional_info, social }: FooterProps) => {
     return (
         <footer className={styles.wrapper}>
             <Layout.Container tag="div">
@@ -68,12 +61,13 @@ export const Footer = () => {
                         </form>
                     </div>
 
-                    <div className={styles.links}>
-                        <NavigationList title={'Корпорации\nи холдинги'} />
-                        <NavigationList title={'Компании\nи Предприятия'} />
-                        <NavigationList title={'Финансовым\nИнститутам'} />
-                        <NavigationList title={'Агентам'} />
-                    </div>
+                    {nav && (
+                        <div className={styles.links}>
+                            {nav.map(({ list }, i) => (
+                                <NavigationList key={i} title={list.title} links={list.links} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </Layout.Container>
 
@@ -84,33 +78,35 @@ export const Footer = () => {
                     </div>
 
                     <div className={styles.firstContentWrapper}>
-                        <span className={styles.text}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been
-                        </span>
+                        {info && <span className={styles.text}>{info}</span>}
                     </div>
                 </div>
 
                 <div className={styles.secondCol}>
                     <div className={styles.secondContentWrapper}>
-                        <span className={styles.text}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry&apos;s standard dummy text
-                            ever since the 1500s, when an unknown pr
-                        </span>
+                        {additional_info && (
+                            <span className={styles.text}>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting
+                                industry. Lorem Ipsum has been the industry&apos;s standard dummy
+                                text ever since the 1500s, when an unknown pr
+                            </span>
+                        )}
                     </div>
 
-                    <div className={styles.soc}>
-                        <Link href={'/'}>
-                            <Icons.Facebook />
-                        </Link>
-                        <Link href={'/'}>
-                            <Icons.LinkedIn />
-                        </Link>
-                        <Link href={'/'}>
-                            <Icons.Telegram />
-                        </Link>
-                    </div>
+                    {social && (
+                        <div className={styles.soc}>
+                            {social.map(({ network: { link, image }, id }, i) => (
+                                <Link key={id || i} href={link}>
+                                    <Image
+                                        src={(image as Media).url || ''}
+                                        alt={''}
+                                        width={20}
+                                        height={20}
+                                    />
+                                </Link>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </footer>

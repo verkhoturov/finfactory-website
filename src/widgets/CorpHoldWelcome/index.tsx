@@ -1,1 +1,0 @@
-export { CorpHoldWelcome } from './CorpHoldWelcome';

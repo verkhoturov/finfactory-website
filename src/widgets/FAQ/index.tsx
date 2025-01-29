@@ -1,1 +1,2 @@
-export { FAQ } from './FAQ';
+export * from './FAQ';
+export * from './ProductFAQ';

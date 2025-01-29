@@ -6,7 +6,11 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-    const footerData = await queryCommonContent({ draft: true });
+    const { footerData, headerData } = await queryCommonContent({ draft: true });
 
-    return <PageLayout footerData={footerData}>{children}</PageLayout>;
+    return (
+        <PageLayout footerData={footerData} headerData={headerData}>
+            {children}
+        </PageLayout>
+    );
 }

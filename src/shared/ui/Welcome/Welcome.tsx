@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import cn from 'classnames';
 import { useSearchParams } from 'next/navigation';
 import { Layout } from '@/shared/ui/Layout';
@@ -13,72 +14,45 @@ import styles from './Welcome.module.css';
 
 type NavType = Pick<HomePageType, 'navigation'>;
 
-const tabsCommonMenu = [
-    {
-        title: 'Динамическое дисконтирование',
-        tab: 'dynamic-discounting',
-    },
-    {
-        title: 'Биржа факторинга',
-        tab: 'factor-broker',
-    },
-    {
-        title: 'Аукцион дисконтирования',
-        tab: 'auction-discounting',
-    },
-    {
-        title: 'Финансирование покупателей',
-        tab: 'buyers-financing',
-    },
-    {
-        title: 'Цифровой двойник цепочки поставок',
-        tab: 'digital-doubloon-supply-chain',
-    },
-    {
-        title: 'Верификация',
-        tab: 'verification',
-    },
-];
-
 const HomePageMenu = ({ navList }: { navList: NavType }) => {
-    const {
-        navigation: { link_1, link_2, link_3, link_4 },
-    } = navList;
+    const { navigation } = navList;
+    if (!navigation) return null;
+
     return (
         <ul>
-            <li>
-                <NavCard href={link_1.link} iconUrl={(link_1.icon as Media).url}>
-                    {link_1.text}
-                </NavCard>
-            </li>
-
-            <li>
-                <NavCard href={link_2.link} iconUrl={(link_2.icon as Media).url}>
-                    {link_2.text}
-                </NavCard>
-            </li>
-
-            <li>
-                <NavCard href={link_3.link} iconUrl={(link_3.icon as Media).url}>
-                    {link_3.text}
-                </NavCard>
-            </li>
-
-            <li>
-                <NavCard href={link_4.link} iconUrl={(link_4.icon as Media).url}>
-                    {link_4.text}
-                </NavCard>
-            </li>
+            {navigation.map(({ link }, i) => (
+                <li key={i}>
+                    <NavCard href={link.link} iconUrl={(link.icon as Media).url}>
+                        {link.text}
+                    </NavCard>
+                </li>
+            ))}
         </ul>
     );
 };
 
-const TabsMenu = ({ activeTab }: { activeTab: string }) => (
+const TabsMenu = ({
+    activeTab,
+    tabs,
+}: {
+    activeTab: string;
+    tabs: {
+        tab: {
+            text: string;
+            link: string;
+        };
+    }[];
+}) => (
     <ul>
-        {tabsCommonMenu.map(({ title, tab }) => (
-            <li key={title}>
-                <NavCard href={`?tab=${tab}`} isActive={activeTab === tab} isSmall scroll={false}>
-                    {title}
+        {tabs.map(({ tab }, i) => (
+            <li key={i}>
+                <NavCard
+                    href={`?tab=${tab.link}`}
+                    isActive={activeTab === tab.link}
+                    isSmall
+                    scroll={false}
+                >
+                    {tab.text}
                 </NavCard>
             </li>
         ))}
@@ -87,22 +61,31 @@ const TabsMenu = ({ activeTab }: { activeTab: string }) => (
 
 interface WelcomeProps {
     title: string;
+    uppertitle?: string;
     subtitle?: string;
     desc?: string | null;
     isHomePage?: boolean;
     backgroundImage?: string;
-    icon?: React.ReactNode;
+    icon?: Media;
     navigationList?: NavType;
+    tabs: {
+        tab: {
+            text: string;
+            link: string;
+        };
+    }[];
 }
 
 export const Welcome = ({
     title,
+    uppertitle,
     subtitle,
     desc,
     isHomePage,
     backgroundImage,
     icon,
     navigationList,
+    tabs,
 }: WelcomeProps) => {
     const searchParams = useSearchParams();
 
@@ -127,8 +110,9 @@ export const Welcome = ({
                 />
                 <Layout.Container tag="div">
                     <div className={styles.inner}>
-                        {subtitle && <Heading.H2 color="light">{subtitle}</Heading.H2>}
+                        {uppertitle && <Heading.H2 color="light">{uppertitle}</Heading.H2>}
                         <Heading.H1>{title}</Heading.H1>
+                        {subtitle && <Heading.H2 color="light">{subtitle}</Heading.H2>}
 
                         {desc && (
                             <div className={styles.descWrapper}>
@@ -136,7 +120,15 @@ export const Welcome = ({
                             </div>
                         )}
 
-                        {icon && <div className={styles.icon}>{icon}</div>}
+                        {icon && icon.url && (
+                            <Image
+                                src={icon.url}
+                                alt=""
+                                width={icon.width || 80}
+                                height={icon.height || 80}
+                                className={styles.icon}
+                            />
+                        )}
                     </div>
                 </Layout.Container>
             </section>
@@ -155,7 +147,7 @@ export const Welcome = ({
                         {isHomePage ? (
                             navigationList && <HomePageMenu navList={navigationList} />
                         ) : (
-                            <TabsMenu activeTab={activeTab} />
+                            <TabsMenu tabs={tabs} activeTab={activeTab} />
                         )}
                     </nav>
 
@@ -165,9 +157,9 @@ export const Welcome = ({
                         })}
                     >
                         <Select
-                            items={tabsCommonMenu.map(({ title, tab }) => ({
-                                label: title,
-                                value: tab,
+                            items={tabs.map(({ tab }) => ({
+                                label: tab.text,
+                                value: tab.link,
                             }))}
                         />
                     </div>

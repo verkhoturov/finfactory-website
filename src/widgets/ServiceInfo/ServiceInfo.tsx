@@ -8,93 +8,72 @@ import { Button } from '@/shared/ui/Button';
 
 import styles from './ServiceInfo.module.css';
 
-const tabs: Record<string, React.ReactNode> = {
-    'dynamic-discounting': (
-        <>
-            Динамическое дисконтирование - <br />
-            это инструмент ранней оплаты поставщику со скидкой
-        </>
-    ),
-    'factor-broker': (
-        <>
-            Биржа факторинга - <br />
-            lorem ipsum dolor sit amet, consectetur adipiscing elit
-        </>
-    ),
-    'auction-discounting': (
-        <>
-            Аукцион дисконтирования - <br />
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
-        </>
-    ),
-    'buyers-financing': (
-        <>
-            Финансирование покупателей - <br />
-            Ut enim ad minim veniam
-        </>
-    ),
-    'digital-doubloon-supply-chain': (
-        <>
-            Цифровой двойник цепочки поставок - <br />
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
-        </>
-    ),
-    'verification': (
-        <>
-            Верификаци - <br />
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        </>
-    ),
-};
+interface ServiceInfoProps {
+    tabs: {
+        tab: {
+            text: string;
+            link: string;
+            content?: {
+                title?: string | null;
+                block_1?: {
+                    title?: string | null;
+                    text?: string | null;
+                };
+                block_2?: {
+                    title?: string | null;
+                    text?: string | null;
+                };
+            };
+        };
+    }[];
+}
 
-export const ServiceInfo = () => {
+export const ServiceInfo = ({ tabs }: ServiceInfoProps) => {
     const searchParams = useSearchParams();
     const tab = searchParams?.get('tab');
 
     const activeTab = tab || 'dynamic-discounting';
 
+    if (!tabs || tab?.length === 0) return null;
+
+    const activeTabContent = tabs.find(({ tab }) => tab.link === activeTab);
+
+    if (!activeTabContent || !activeTabContent.tab.content) return null;
+
+    const { title, block_1, block_2 } = activeTabContent.tab.content;
+
+    const showBlocks =
+        block_1 && block_2 && Object.keys(block_1).length > 0 && Object.keys(block_2).length > 0;
+
+    if (!showBlocks && !title) return null;
+
     return (
         <Layout.Container>
             <div className={styles.wrapper}>
-                <Heading.H2>{tabs[activeTab as string]}</Heading.H2>
+                <Heading.H2>{title}</Heading.H2>
 
-                <div className={styles.info}>
-                    <div className={styles.infoTop}>
-                        <Heading.H2>Как это работает?</Heading.H2>
+                {showBlocks && (
+                    <div className={styles.info}>
+                        {Object.keys(block_1).length > 0 && (
+                            <div className={styles.infoTop}>
+                                {block_1.title && <Heading.H2>{block_1.title}</Heading.H2>}
 
-                        <p>
-                            Покупатель предоставляет поставщикам возможность получения ранней оплаты
-                            до истечения срока оплаты по договору из собственной избыточной
-                            ликвидности
-                            <br />
-                            <br />
-                            Поставщик выбирает осуществленные поставки или исполненные работы для
-                            ранней оплаты. Система рассчитывает ставку дисконтирования исходя из
-                            предустановленных покупателем правил.
-                        </p>
+                                <p>{block_1.text}</p>
+                            </div>
+                        )}
+                        {Object.keys(block_2).length > 0 && (block_2.title || block_2.text) && (
+                            <div className={styles.infoBottom}>
+                                {block_2.title && <Heading.H2>{block_2.title}</Heading.H2>}
+
+                                <p>{block_2.text}</p>
+                                <br />
+                                <br />
+
+                                <Button>Подключиться к платформе</Button>
+                            </div>
+                        )}
                     </div>
-                    <div className={styles.infoBottom}>
-                        <Heading.H2>Условия и требования</Heading.H2>
-
-                        <p>
-                            Покупатель предоставляет поставщикам возможность получения ранней оплаты
-                            до истечения срока оплаты по договору из собственной избыточной
-                            ликвидности
-                            <br />
-                            <br />
-                            Поставщик выбирает осуществленные поставки или исполненные работы для
-                            ранней оплаты. Система рассчитывает ставку дисконтирования исходя из
-                            предустановленных покупателем правил. работы для ранней оплаты. Система
-                            рассчитывает ставку дисконтирования исходя из предустановленных
-                            покупателем правил.работы для ранней оплаты. Система рассчитывает ставку
-                            дисконтирования исходя из предустановленных покупателем правил.
-                        </p>
-                        <br />
-                        <br />
-
-                        <Button>Подключиться к платформе</Button>
-                    </div>
-                </div>
+                )}
             </div>
         </Layout.Container>
     );

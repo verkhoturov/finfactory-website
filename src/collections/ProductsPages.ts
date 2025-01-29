@@ -1,17 +1,8 @@
-import type { CollectionConfig } from 'payload';
-
+import type { CollectionConfig, Field } from 'payload';
 import { authenticated } from '../shared/utils/access/authenticated';
 import { authenticatedOrPublished } from '../shared/utils/access/authenticatedOrPublished';
 
 /*
-import { Archive } from '../../blocks/ArchiveBlock/config'
-import { CallToAction } from '../../blocks/CallToAction/config'
-import { Content } from '../../blocks/Content/config'
-import { FormBlock } from '../../blocks/Form/config'
-import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { hero } from '@/heros/config'
-import { slugField } from '@/fields/slug'
-import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 */
 import { populatePublishedAt } from '@/shared/utils/populatePublishedAt';
@@ -23,6 +14,30 @@ import {
     OverviewField,
     PreviewField,
 } from '@payloadcms/plugin-seo/fields';
+
+const profitsFields: Field[] = [
+    {
+        name: 'title',
+        label: 'Заголовок',
+        type: 'textarea',
+    },
+    {
+        type: 'array',
+        name: 'points',
+        label: 'Пункты',
+        labels: {
+            singular: 'Пункт',
+            plural: 'Пункты',
+        },
+        fields: [
+            {
+                name: 'text',
+                label: 'Текст',
+                type: 'textarea',
+            },
+        ],
+    },
+];
 
 export const ProductsPages: CollectionConfig<'products-pages'> = {
     slug: 'products-pages',
@@ -36,37 +51,20 @@ export const ProductsPages: CollectionConfig<'products-pages'> = {
         read: authenticatedOrPublished,
         update: authenticated,
     },
-    // This config controls what's populated by default when a page is referenced
-    // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
-    // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'pages'>
     defaultPopulate: {
-        title: true,
         slug: true,
     },
     admin: {
         defaultColumns: ['title', 'slug', 'updatedAt'],
-        /*
-    livePreview: {
-      url: ({ data, req }) => {
-        const path = generatePreviewPath({
-          slug: typeof data?.slug === 'string' ? data.slug : '',
-          collection: 'pages',
-          req,
-        })
-
-        return path
-      },
-    },
-    preview: (data, { req }) =>
-      generatePreviewPath({
-        slug: typeof data?.slug === 'string' ? data.slug : '',
-        collection: 'pages',
-        req,
-      }),
-    */
         useAsTitle: 'title',
     },
     fields: [
+        {
+            name: 'title',
+            label: 'Имя страницы',
+            type: 'text',
+            required: true,
+        },
         {
             name: 'slug',
             type: 'text',
@@ -76,12 +74,219 @@ export const ProductsPages: CollectionConfig<'products-pages'> = {
             unique: true,
             admin: {
                 position: 'sidebar',
+                description: '(ссылка на страницу)',
             },
         },
         {
-            name: 'title',
-            type: 'text',
-            required: true,
+            name: 'welcome',
+            label: 'Приветствие',
+            type: 'group',
+            fields: [
+                {
+                    name: 'uppertitle',
+                    label: 'Надзаголовок',
+                    type: 'text',
+                },
+                {
+                    name: 'title',
+                    label: 'Заголовок',
+                    type: 'textarea',
+                    required: true,
+                },
+                {
+                    name: 'subtitle',
+                    label: 'Подзаголовок',
+                    type: 'text',
+                },
+                {
+                    name: 'description',
+                    label: 'Описание',
+                    type: 'textarea',
+                },
+                {
+                    name: 'icon',
+                    label: 'Иконка',
+                    type: 'upload',
+                    relationTo: 'media',
+                },
+                {
+                    name: 'bg_image',
+                    label: 'Фононовое изображение',
+                    type: 'upload',
+                    relationTo: 'media',
+                },
+            ],
+        },
+        {
+            name: 'tabs',
+            label: 'Вкладки',
+            type: 'array',
+            labels: {
+                singular: 'Вкладка',
+                plural: 'Вкладки',
+            },
+            maxRows: 6,
+            fields: [
+                {
+                    name: 'tab',
+                    label: '',
+                    type: 'group',
+                    fields: [
+                        {
+                            name: 'text',
+                            label: 'Текст',
+                            type: 'textarea',
+                            required: true,
+                        },
+                        {
+                            name: 'link',
+                            label: 'Ссылка',
+                            type: 'text',
+                            required: true,
+                        },
+                        {
+                            name: 'content',
+                            label: 'Контент',
+                            type: 'group',
+                            fields: [
+                                {
+                                    name: 'title',
+                                    label: 'Общее описание',
+                                    type: 'textarea',
+                                    admin: {
+                                        rows: 5,
+                                    },
+                                },
+                                {
+                                    name: 'block_1',
+                                    label: 'Верхний блок',
+                                    type: 'group',
+                                    fields: [
+                                        {
+                                            name: 'title',
+                                            label: 'Заголовок',
+                                            type: 'textarea',
+                                        },
+                                        {
+                                            name: 'text',
+                                            label: 'Текст',
+                                            type: 'textarea',
+                                            admin: {
+                                                rows: 5,
+                                            },
+                                        },
+                                    ],
+                                },
+                                {
+                                    name: 'block_2',
+                                    label: 'Нижний блок',
+                                    type: 'group',
+                                    fields: [
+                                        {
+                                            name: 'title',
+                                            label: 'Заголовок',
+                                            type: 'textarea',
+                                        },
+                                        {
+                                            name: 'text',
+                                            label: 'Текст',
+                                            type: 'textarea',
+                                            admin: {
+                                                rows: 5,
+                                            },
+                                        },
+                                    ],
+                                },
+                                {
+                                    name: 'profits',
+                                    label: 'Выгоды',
+                                    type: 'group',
+                                    fields: [
+                                        {
+                                            name: 'title',
+                                            label: 'Заголовок',
+                                            type: 'textarea',
+                                        },
+                                        {
+                                            type: 'row',
+                                            fields: [
+                                                {
+                                                    name: 'profit_1',
+                                                    label: '',
+                                                    type: 'group',
+                                                    fields: profitsFields,
+                                                },
+                                                {
+                                                    name: 'profit_2',
+                                                    label: '',
+                                                    type: 'group',
+                                                    fields: profitsFields,
+                                                },
+                                            ],
+                                        },
+                                        {
+                                            type: 'row',
+                                            fields: [
+                                                {
+                                                    name: 'profit_3',
+                                                    label: '',
+                                                    type: 'group',
+                                                    fields: profitsFields,
+                                                },
+                                                {
+                                                    name: 'profit_4',
+                                                    label: '',
+                                                    type: 'group',
+                                                    fields: profitsFields,
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+
+                                {
+                                    name: 'faq',
+                                    label: 'FAQ',
+                                    type: 'group',
+                                    fields: [
+                                        {
+                                            name: 'title',
+                                            label: 'Заголовок',
+                                            type: 'textarea',
+                                        },
+                                        {
+                                            type: 'array',
+                                            name: 'list',
+                                            label: 'Вопросы',
+                                            labels: {
+                                                singular: 'Вопрос',
+                                                plural: 'Вопросы',
+                                            },
+                                            fields: [
+                                                {
+                                                    name: 'title',
+                                                    label: 'Вопрос',
+                                                    type: 'text',
+                                                    required: true,
+                                                },
+                                                {
+                                                    name: 'text',
+                                                    label: 'Ответ',
+                                                    type: 'textarea',
+                                                    required: true,
+                                                    admin: {
+                                                        rows: 5,
+                                                    },
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
         },
         {
             type: 'tabs',
@@ -99,10 +304,10 @@ export const ProductsPages: CollectionConfig<'products-pages'> = {
                             hasGenerateFn: true,
                         }),
                         /*
-            MetaImageField({
-              relationTo: 'media',
-            }),
-            */
+MetaImageField({
+relationTo: 'media',
+}),
+*/
                         MetaDescriptionField({}),
                         PreviewField({
                             hasGenerateFn: true,
@@ -117,77 +322,77 @@ export const ProductsPages: CollectionConfig<'products-pages'> = {
             ],
         },
         /*
-    {
-      type: 'tabs',
-      tabs: [
-        {
-          fields: [hero],
-          label: 'Hero',
-        },
-        {
-          fields: [
-            {
-              name: 'layout',
-              type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
-              required: true,
-              admin: {
-                initCollapsed: true,
-              },
-            },
-          ],
-          label: 'Content',
-        },
-        {
-          name: 'meta',
-          label: 'SEO',
-          fields: [
-            OverviewField({
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
-            }),
-            MetaTitleField({
-              hasGenerateFn: true,
-            }),
-            MetaImageField({
-              relationTo: 'media',
-            }),
+{
+type: 'tabs',
+tabs: [
+{
+fields: [hero],
+label: 'Hero',
+},
+{
+fields: [
+{
+name: 'layout',
+type: 'blocks',
+blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+required: true,
+admin: {
+initCollapsed: true,
+},
+},
+],
+label: 'Content',
+},
+{
+name: 'meta',
+label: 'SEO',
+fields: [
+OverviewField({
+titlePath: 'meta.title',
+descriptionPath: 'meta.description',
+imagePath: 'meta.image',
+}),
+MetaTitleField({
+hasGenerateFn: true,
+}),
+MetaImageField({
+relationTo: 'media',
+}),
 
-            MetaDescriptionField({}),
-            PreviewField({
-              // if the `generateUrl` function is configured
-              hasGenerateFn: true,
+MetaDescriptionField({}),
+PreviewField({
+// if the `generateUrl` function is configured
+hasGenerateFn: true,
 
-              // field paths to match the target field for data
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
-          ],
-        },
-      ],
-    },
-    {
-      name: 'publishedAt',
-      type: 'date',
-      admin: {
-        position: 'sidebar',
-      },
-    },
-    ...slugField(),
-    */
+// field paths to match the target field for data
+titlePath: 'meta.title',
+descriptionPath: 'meta.description',
+}),
+],
+},
+],
+},
+{
+name: 'publishedAt',
+type: 'date',
+admin: {
+position: 'sidebar',
+},
+},
+...slugField(),
+*/
     ],
     /*
-  versions: {
-    drafts: {
-      autosave: {
-        interval: 100, // We set this interval for optimal live preview
-      },
-      schedulePublish: true,
-    },
-    maxPerDoc: 50,
-  },
-  */
+versions: {
+drafts: {
+autosave: {
+interval: 100, // We set this interval for optimal live preview
+},
+schedulePublish: true,
+},
+maxPerDoc: 50,
+},
+*/
     hooks: {
         // afterChange: [revalidatePage],
         beforeChange: [populatePublishedAt],

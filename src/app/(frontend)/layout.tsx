@@ -2,7 +2,11 @@ import React from 'react';
 import { PageLayout, queryCommonContent } from '@/widgets/PageLayout';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-    const footerData = await queryCommonContent({});
+    const { footerData, headerData } = await queryCommonContent({ draft: false });
 
-    return <PageLayout footerData={footerData}>{children}</PageLayout>;
+    return (
+        <PageLayout footerData={footerData} headerData={headerData}>
+            {children}
+        </PageLayout>
+    );
 }

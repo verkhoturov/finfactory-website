@@ -5,6 +5,7 @@ import configPromise from '@payload-config';
 import { getPayload } from 'payload';
 import React, { cache } from 'react';
 import { Home } from '@/page-templates/home';
+import { ProductPage } from '@/page-templates/product';
 // import { homeStatic } from '@/endpoints/seed/home-static'
 
 import type { ProductsPage as ProductsPageType, HomePage as HomePageType } from '@/payload-types';
@@ -29,12 +30,8 @@ type Args = {
 export default async function Page({ params: paramsPromise }: Args) {
     const { slug } = await paramsPromise;
 
-    // const url = '/' + slug
-
-    let page: Page | null;
-
     if (slug) {
-        page = await queryPageBySlug({
+        const page = await queryPageBySlug({
             slug,
         });
 
@@ -44,10 +41,10 @@ export default async function Page({ params: paramsPromise }: Args) {
 
         //  console.log('products page', page);
 
-        return <article>slug: {slug}</article>;
+        return <ProductPage {...page} />;
     }
 
-    page = await queryHomePage();
+    const page = await queryHomePage();
 
     /*
   if (!page) {
@@ -98,7 +95,6 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
         // draft,
         limit: 1,
         pagination: false,
-        // overrideAccess: draft,
         where: {
             slug: {
                 equals: slug,

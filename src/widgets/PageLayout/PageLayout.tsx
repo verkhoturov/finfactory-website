@@ -7,7 +7,7 @@ import { Layout } from '@/shared/ui/Layout';
 import { Header } from '@/widgets/Header';
 import { Footer } from '@/widgets/Footer';
 
-import type { Footer as FooterData } from '@/payload-types';
+import type { Footer as FooterData, Header as HeaderData } from '@/payload-types';
 
 import '@/styles/globals.css';
 
@@ -19,16 +19,18 @@ const roboto = Roboto({
 export const PageLayout = ({
     children,
     footerData,
+    headerData,
 }: {
     children: React.ReactNode;
     footerData: FooterData;
+    headerData: HeaderData;
 }) => {
     return (
         <html lang="ru" suppressHydrationWarning className={roboto.className}>
             <body>
                 <UIKitProvider>
                     <Layout.Page>
-                        <Header />
+                        <Header {...headerData} />
                         <Layout.Main>{children}</Layout.Main>
                         <Footer {...footerData} />
                     </Layout.Page>
@@ -41,10 +43,15 @@ export const PageLayout = ({
 export const queryCommonContent = cache(async ({ draft }: { draft?: boolean }) => {
     const payload = await getPayload({ config: configPromise });
 
-    const result = await payload.findGlobal({
+    const footerData = await payload.findGlobal({
         slug: 'footer',
         draft,
     });
 
-    return result || null;
+    const headerData = await payload.findGlobal({
+        slug: 'header',
+        draft,
+    });
+
+    return { footerData, headerData };
 });

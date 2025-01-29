@@ -5,9 +5,11 @@ import { usePathname } from 'next/navigation';
 import { Logo } from '@/shared/ui/Logo';
 import { LinkButton } from '@/shared/ui/Button';
 
+import type { Header as HeaderProps } from '@/payload-types';
+
 import styles from './Header.module.css';
 
-export const Header = () => {
+export const Header = ({ nav, buttons }: HeaderProps) => {
     const pathname = usePathname();
     const isHomePage = pathname === '/' || pathname === '/preview/home';
 
@@ -15,55 +17,34 @@ export const Header = () => {
         <header className={styles.wrapper}>
             <Logo />
 
-            {!isHomePage ? (
-                <nav className={styles.nav}>
-                    <ul>
-                        <li>
-                            <Link
-                                href={'/corporations-and-holdings'}
-                                className={
-                                    pathname === '/corporations-and-holdings' ? styles.active : ''
-                                }
-                            >
-                                Корпорации и холдинги
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                href={'/companies-and-enterprises'}
-                                className={
-                                    pathname === '/companies-and-enterprises' ? styles.active : ''
-                                }
-                            >
-                                Компании и Предприятия
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                href={'/financial-institutions'}
-                                className={
-                                    pathname === '/financial-institutions' ? styles.active : ''
-                                }
-                            >
-                                Финансовым Институтам
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                href={'/agents'}
-                                className={pathname === '/agents' ? styles.active : ''}
-                            >
-                                Агентам
-                            </Link>
-                        </li>
-                    </ul>
-                </nav>
-            ) : null}
+            {!isHomePage
+                ? nav && (
+                      <nav className={styles.nav}>
+                          <ul>
+                              {nav.map(({ text, link }, i) => (
+                                  <li key={i}>
+                                      <Link
+                                          href={link}
+                                          className={pathname === link ? styles.active : ''}
+                                      >
+                                          {text}
+                                      </Link>
+                                  </li>
+                              ))}
+                          </ul>
+                      </nav>
+                  )
+                : null}
 
-            <div className={styles.buttons}>
-                <LinkButton href={'/'}>Войти</LinkButton>
-                <LinkButton href={'/'}>Оставить заявку</LinkButton>
-            </div>
+            {buttons && (
+                <div className={styles.buttons}>
+                    {buttons.map(({ button: { text, link } }, i) => (
+                        <LinkButton key={i} href={link}>
+                            {text}
+                        </LinkButton>
+                    ))}
+                </div>
+            )}
         </header>
     );
 };

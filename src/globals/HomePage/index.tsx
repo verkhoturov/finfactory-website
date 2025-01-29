@@ -57,29 +57,12 @@ export const HomePage: GlobalConfig = {
         {
             name: 'navigation',
             label: 'Навигация',
-            type: 'group',
+            type: 'array',
+            maxRows: 4,
             fields: [
                 {
-                    name: 'link_1',
-                    label: 'Ссылка 1',
-                    type: 'group',
-                    fields: NavLinkFields,
-                },
-                {
-                    name: 'link_2',
-                    label: 'Ссылка 2',
-                    type: 'group',
-                    fields: NavLinkFields,
-                },
-                {
-                    name: 'link_3',
-                    label: 'Ссылка 3',
-                    type: 'group',
-                    fields: NavLinkFields,
-                },
-                {
-                    name: 'link_4',
-                    label: 'Ссылка 4',
+                    name: 'link',
+                    label: 'Ссылка',
                     type: 'group',
                     fields: NavLinkFields,
                 },

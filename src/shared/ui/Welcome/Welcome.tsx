@@ -151,18 +151,20 @@ export const Welcome = ({
                         )}
                     </nav>
 
-                    <div
-                        className={cn(styles.navSelectWrapper, {
-                            [styles.home]: isHomePage,
-                        })}
-                    >
-                        <Select
-                            items={tabs.map(({ tab }) => ({
-                                label: tab.text,
-                                value: tab.link,
-                            }))}
-                        />
-                    </div>
+                    {tabs.length > 0 ? (
+                        <div
+                            className={cn(styles.navSelectWrapper, {
+                                [styles.home]: isHomePage,
+                            })}
+                        >
+                            <Select
+                                items={tabs.map(({ tab }) => ({
+                                    label: tab.text,
+                                    value: tab.link,
+                                }))}
+                            />
+                        </div>
+                    ) : null}
                 </Layout.Container>
             </section>
         </>

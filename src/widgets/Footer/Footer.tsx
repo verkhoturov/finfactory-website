@@ -23,9 +23,9 @@ const NavigationList = ({
           }[]
         | null;
 }) => {
-    if (!links) return null;
+    console.log('NavigationList links', links);
 
-    console.log('footer links', links);
+    if (!links) return null;
 
     return (
         <div className={styles.navCol}>
@@ -47,6 +47,7 @@ const NavigationList = ({
 };
 
 export const Footer = ({ nav, info, additional_info, social }: FooterProps) => {
+    console.log("Footer nav", nav)
     return (
         <footer className={styles.wrapper}>
             <Layout.Container tag="div">

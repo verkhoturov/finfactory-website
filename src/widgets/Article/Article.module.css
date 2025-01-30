@@ -1,0 +1,32 @@
+.wrapper {
+    padding-top: 80px;
+    padding-bottom: 60px;
+}
+
+.wrapper p {
+    font-size: 16px;
+    line-height: 18px;
+    margin-bottom: 6px;
+}
+
+.wrapper h2,
+.wrapper h1 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    margin-bottom: 12px;
+}
+
+.wrapper h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 20px;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 1023px) {
+    .wrapper {
+        padding-top: 40px;
+        padding-bottom: 30px;
+    }
+}

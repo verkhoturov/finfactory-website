@@ -49,7 +49,7 @@ const NavigationList = ({
 };
 
 export const Footer = ({ nav, info, additional_info, social }: FooterProps) => {
-    console.log("Footer nav", nav)
+    console.log('Footer nav', nav);
     return (
         <footer className={styles.wrapper}>
             <Layout.Container tag="div">
@@ -89,11 +89,7 @@ export const Footer = ({ nav, info, additional_info, social }: FooterProps) => {
 
                 <div className={styles.secondCol}>
                     <div className={styles.secondContentWrapper}>
-                        {additional_info && (
-                            <span className={styles.text}>
-                                {additional_info}
-                            </span>
-                        )}
+                        {additional_info && <span className={styles.text}>{additional_info}</span>}
                     </div>
 
                     {social && (

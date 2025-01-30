@@ -18,8 +18,6 @@ const HomePageMenu = ({ navList }: { navList: NavType }) => {
     const { navigation } = navList;
     if (!navigation) return null;
 
-    console.log("navigation", navigation);
-
     return (
         <ul>
             {navigation.map(({ link }, i) => (
@@ -76,6 +74,7 @@ interface WelcomeProps {
             link: string;
         };
     }[];
+    isBlog?: boolean;
 }
 
 export const Welcome = ({
@@ -88,6 +87,7 @@ export const Welcome = ({
     icon,
     navigationList,
     tabs,
+    isBlog,
 }: WelcomeProps) => {
     const searchParams = useSearchParams();
 
@@ -102,7 +102,11 @@ export const Welcome = ({
 
     return (
         <>
-            <section className={styles.wrapper}>
+            <section
+                className={cn(styles.wrapper, {
+                    [styles.blog]: isBlog,
+                })}
+            >
                 <div
                     className={styles.bg}
                     style={{

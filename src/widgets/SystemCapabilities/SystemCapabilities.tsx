@@ -22,6 +22,8 @@ const Card = ({ children, icon }: { children: React.ReactNode; icon: Media }) =>
 type SystemCapabilitiesProps = Pick<HomePageType, 'system_capabilities'>;
 
 export const SystemCapabilities = ({ system_capabilities }: SystemCapabilitiesProps) => {
+    if (!system_capabilities) return null;
+
     return (
         <Layout.Container>
             <div className={styles.wrapper}>

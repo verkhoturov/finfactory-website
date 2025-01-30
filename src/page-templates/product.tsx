@@ -1,14 +1,20 @@
 import { SystemCapabilities } from '@/widgets/SystemCapabilities';
-// import { Blog } from '@/widgets/Blog';
+import { Blog } from '@/widgets/Blog';
 import { ProductFAQ } from '@/widgets/FAQ';
 import { Welcome } from '@/shared/ui/Welcome';
 import { ServiceInfo } from '@/widgets/ServiceInfo';
 import { Profit } from '@/widgets/Profit';
 import { Suspense } from 'react';
 
-import type { ProductsPage as ProductsPageProps, Media } from '@/payload-types';
+import type { ProductsPage as ProductsPageProps, Media, PostsPage as Posts } from '@/payload-types';
 
-export const ProductPage = ({ welcome, tabs }: ProductsPageProps) => {
+export const ProductPage = ({
+    welcome,
+    tabs,
+    posts,
+}: ProductsPageProps & {
+    posts: Posts[];
+}) => {
     return (
         <>
             <Welcome
@@ -28,7 +34,7 @@ export const ProductPage = ({ welcome, tabs }: ProductsPageProps) => {
             <Suspense>
                 <ProductFAQ tabs={tabs || []} />
             </Suspense>
-            {/* <Blog /> */}
+            <Blog posts={posts} />
         </>
     );
 };

@@ -12,6 +12,7 @@ export interface Config {
   };
   collections: {
     'products-pages': ProductsPage;
+    'posts-pages': PostsPage;
     users: User;
     media: Media;
     'payload-jobs': PayloadJob;
@@ -22,6 +23,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     'products-pages': ProductsPagesSelect<false> | ProductsPagesSelect<true>;
+    'posts-pages': PostsPagesSelect<false> | PostsPagesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
@@ -192,6 +194,41 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts-pages".
+ */
+export interface PostsPage {
+  id: string;
+  /**
+   * (ссылка на страницу)
+   */
+  slug: string;
+  preview_image?: (string | null) | Media;
+  title: string;
+  article: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -310,6 +347,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'products-pages';
         value: string | ProductsPage;
+      } | null)
+    | ({
+        relationTo: 'posts-pages';
+        value: string | PostsPage;
       } | null)
     | ({
         relationTo: 'users';
@@ -471,6 +512,25 @@ export interface ProductsPagesSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts-pages_select".
+ */
+export interface PostsPagesSelect<T extends boolean = true> {
+  slug?: T;
+  preview_image?: T;
+  title?: T;
+  article?: T;
   meta?:
     | T
     | {
@@ -924,10 +984,15 @@ export interface TaskSchedulePublish {
   input: {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
-    doc?: {
-      relationTo: 'products-pages';
-      value: string | ProductsPage;
-    } | null;
+    doc?:
+      | ({
+          relationTo: 'products-pages';
+          value: string | ProductsPage;
+        } | null)
+      | ({
+          relationTo: 'posts-pages';
+          value: string | PostsPage;
+        } | null);
     global?: string | null;
     user?: (string | null) | User;
   };

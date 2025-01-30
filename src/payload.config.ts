@@ -12,6 +12,7 @@ import { ru } from '@payloadcms/translations/languages/ru';
 import { Users } from './collections/Users';
 import { Media } from './collections/Media';
 import { ProductsPages } from './collections/ProductsPages';
+import { PostPages } from './collections/PostsPages';
 
 import { HomePage } from './globals/HomePage';
 import { Header } from './globals/Header';
@@ -74,7 +75,7 @@ export default buildConfig({
             ],
         },
     },
-    collections: [ProductsPages, Users, Media],
+    collections: [ProductsPages, PostPages, Users, Media],
     globals: [HomePage, Header, Footer],
     editor: lexicalEditor(),
     secret: process.env.PAYLOAD_SECRET || '',

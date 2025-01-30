@@ -13,6 +13,11 @@
     gap: 10px;
 }
 
+.row.small {
+    justify-content: flex-start;
+    gap: 80px;
+}
+
 @media (max-width: 1023px) {
     .wrapper {
         padding-top: 30px;
@@ -25,5 +30,9 @@
 
     .row {
         flex-direction: column;
+    }
+
+    .row.small {
+        gap: 20;
     }
 }

@@ -1,10 +1,7 @@
 import type { CollectionConfig, Field } from 'payload';
-import { authenticated } from '../shared/utils/access/authenticated';
-import { authenticatedOrPublished } from '../shared/utils/access/authenticatedOrPublished';
-
-/*
-import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
-*/
+import { authenticated } from '@/shared/utils/access/authenticated';
+import { authenticatedOrPublished } from '@/shared/utils/access/authenticatedOrPublished';
+import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
 import { populatePublishedAt } from '@/shared/utils/populatePublishedAt';
 
 import {
@@ -341,8 +338,8 @@ relationTo: 'media',
         maxPerDoc: 50,
     },
     hooks: {
-        // afterChange: [revalidatePage],
+        afterChange: [revalidatePage],
         beforeChange: [populatePublishedAt],
-        // afterDelete: [revalidateDelete],
+        afterDelete: [revalidateDelete],
     },
 };

@@ -34,6 +34,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         const page = await queryPageBySlug({
             slug,
         });
+        const posts = await queryPostsBySlug();
 
         if (!page) {
             return notFound();
@@ -41,10 +42,11 @@ export default async function Page({ params: paramsPromise }: Args) {
 
         //  console.log('products page', page);
 
-        return <ProductPage {...page} />;
+        return <ProductPage {...page} posts={posts} />;
     }
 
     const page = await queryHomePage();
+    const posts = await queryPostsBySlug();
 
     /*
   if (!page) {
@@ -69,7 +71,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
     // console.log('home page', page);
 
-    return <Home {...page} />;
+    return <Home {...page} posts={posts} />;
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
@@ -113,4 +115,15 @@ const queryHomePage = cache(async () => {
     });
 
     return result || null;
+});
+
+const queryPostsBySlug = cache(async () => {
+    const payload = await getPayload({ config: configPromise });
+
+    const result = await payload.find({
+        collection: 'posts-pages',
+        limit: 3,
+    });
+
+    return result.docs || null;
 });

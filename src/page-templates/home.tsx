@@ -1,14 +1,18 @@
 import { HomeWelcome } from '@/widgets/HomeWelcome';
 import { WhyWe } from '@/widgets/WhyWe';
 import { SystemCapabilities } from '@/widgets/SystemCapabilities';
-// import { Blog } from '@/widgets/Blog';
+import { Blog } from '@/widgets/Blog';
 import { FAQ } from '@/widgets/FAQ';
 import { Products } from '@/widgets/Products';
 import { Partners } from '@/widgets/Partners';
 
-import type { HomePage as HomePageProps } from '@/payload-types';
+import type { HomePage as HomePageProps, PostsPage as Posts } from '@/payload-types';
 
-export const Home = (props: HomePageProps) => {
+export const Home = (
+    props: HomePageProps & {
+        posts: Posts[];
+    },
+) => {
     return (
         <>
             <HomeWelcome welcome={props.welcome} navigation={props.navigation} />
@@ -17,7 +21,7 @@ export const Home = (props: HomePageProps) => {
             <Partners partners={props.partners} />
             <SystemCapabilities system_capabilities={props.system_capabilities} />
             <FAQ faq={props.faq} />
-            {/* <Blog /> */}
+            <Blog posts={props.posts} />
         </>
     );
 };

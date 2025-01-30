@@ -13,7 +13,7 @@ export const ProductPage = ({
     tabs,
     posts,
 }: ProductsPageProps & {
-    posts: Posts[];
+    posts?: Posts[];
 }) => {
     return (
         <>
@@ -34,7 +34,7 @@ export const ProductPage = ({
             <Suspense>
                 <ProductFAQ tabs={tabs || []} />
             </Suspense>
-            <Blog posts={posts} />
+            <Blog posts={posts || []} />
         </>
     );
 };

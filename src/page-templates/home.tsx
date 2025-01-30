@@ -10,7 +10,7 @@ import type { HomePage as HomePageProps, PostsPage as Posts } from '@/payload-ty
 
 export const Home = (
     props: HomePageProps & {
-        posts: Posts[];
+        posts?: Posts[];
     },
 ) => {
     return (
@@ -21,7 +21,7 @@ export const Home = (
             <Partners partners={props.partners} />
             <SystemCapabilities system_capabilities={props.system_capabilities} />
             <FAQ faq={props.faq} />
-            <Blog posts={props.posts} />
+            <Blog posts={props.posts || []} />
         </>
     );
 };

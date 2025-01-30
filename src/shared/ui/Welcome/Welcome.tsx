@@ -18,6 +18,8 @@ const HomePageMenu = ({ navList }: { navList: NavType }) => {
     const { navigation } = navList;
     if (!navigation) return null;
 
+    console.log("navigation", navigation);
+
     return (
         <ul>
             {navigation.map(({ link }, i) => (

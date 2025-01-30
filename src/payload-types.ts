@@ -7,942 +7,941 @@
  */
 
 export interface Config {
-    auth: {
-        users: UserAuthOperations;
+  auth: {
+    users: UserAuthOperations;
+  };
+  collections: {
+    'products-pages': ProductsPage;
+    users: User;
+    media: Media;
+    'payload-jobs': PayloadJob;
+    'payload-locked-documents': PayloadLockedDocument;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
+  };
+  collectionsJoins: {};
+  collectionsSelect: {
+    'products-pages': ProductsPagesSelect<false> | ProductsPagesSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
+  db: {
+    defaultIDType: string;
+  };
+  globals: {
+    'home-page': HomePage;
+    header: Header;
+    footer: Footer;
+  };
+  globalsSelect: {
+    'home-page': HomePageSelect<false> | HomePageSelect<true>;
+    header: HeaderSelect<false> | HeaderSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
+  };
+  locale: null;
+  user: User & {
+    collection: 'users';
+  };
+  jobs: {
+    tasks: {
+      schedulePublish: TaskSchedulePublish;
+      inline: {
+        input: unknown;
+        output: unknown;
+      };
     };
-    collections: {
-        'products-pages': ProductsPage;
-        'users': User;
-        'media': Media;
-        'payload-jobs': PayloadJob;
-        'payload-locked-documents': PayloadLockedDocument;
-        'payload-preferences': PayloadPreference;
-        'payload-migrations': PayloadMigration;
-    };
-    collectionsJoins: {};
-    collectionsSelect: {
-        'products-pages': ProductsPagesSelect<false> | ProductsPagesSelect<true>;
-        'users': UsersSelect<false> | UsersSelect<true>;
-        'media': MediaSelect<false> | MediaSelect<true>;
-        'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-        'payload-locked-documents':
-            | PayloadLockedDocumentsSelect<false>
-            | PayloadLockedDocumentsSelect<true>;
-        'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-        'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
-    };
-    db: {
-        defaultIDType: string;
-    };
-    globals: {
-        'home-page': HomePage;
-        'header': Header;
-        'footer': Footer;
-    };
-    globalsSelect: {
-        'home-page': HomePageSelect<false> | HomePageSelect<true>;
-        'header': HeaderSelect<false> | HeaderSelect<true>;
-        'footer': FooterSelect<false> | FooterSelect<true>;
-    };
-    locale: null;
-    user: User & {
-        collection: 'users';
-    };
-    jobs: {
-        tasks: {
-            schedulePublish: TaskSchedulePublish;
-            inline: {
-                input: unknown;
-                output: unknown;
-            };
-        };
-        workflows: unknown;
-    };
+    workflows: unknown;
+  };
 }
 export interface UserAuthOperations {
-    forgotPassword: {
-        email: string;
-        password: string;
-    };
-    login: {
-        email: string;
-        password: string;
-    };
-    registerFirstUser: {
-        email: string;
-        password: string;
-    };
-    unlock: {
-        email: string;
-        password: string;
-    };
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products-pages".
  */
 export interface ProductsPage {
-    id: string;
+  id: string;
+  title: string;
+  /**
+   * (ссылка на страницу)
+   */
+  slug: string;
+  welcome: {
+    uppertitle?: string | null;
     title: string;
-    /**
-     * (ссылка на страницу)
-     */
-    slug: string;
-    welcome: {
-        uppertitle?: string | null;
-        title: string;
-        subtitle?: string | null;
-        description?: string | null;
-        icon?: (string | null) | Media;
-        bg_image?: (string | null) | Media;
-    };
-    tabs?:
-        | {
-              tab: {
-                  text: string;
-                  link: string;
-                  content?: {
-                      title?: string | null;
-                      block_1?: {
-                          title?: string | null;
-                          text?: string | null;
-                      };
-                      block_2?: {
-                          title?: string | null;
-                          text?: string | null;
-                      };
-                      profits?: {
-                          title?: string | null;
-                          profit_1?: {
-                              title?: string | null;
-                              points?:
-                                  | {
-                                        text?: string | null;
-                                        id?: string | null;
-                                    }[]
-                                  | null;
-                          };
-                          profit_2?: {
-                              title?: string | null;
-                              points?:
-                                  | {
-                                        text?: string | null;
-                                        id?: string | null;
-                                    }[]
-                                  | null;
-                          };
-                          profit_3?: {
-                              title?: string | null;
-                              points?:
-                                  | {
-                                        text?: string | null;
-                                        id?: string | null;
-                                    }[]
-                                  | null;
-                          };
-                          profit_4?: {
-                              title?: string | null;
-                              points?:
-                                  | {
-                                        text?: string | null;
-                                        id?: string | null;
-                                    }[]
-                                  | null;
-                          };
-                      };
-                      faq?: {
-                          title?: string | null;
-                          list?:
-                              | {
-                                    title: string;
-                                    text: string;
-                                    id?: string | null;
-                                }[]
-                              | null;
-                      };
-                  };
+    subtitle?: string | null;
+    description?: string | null;
+    icon?: (string | null) | Media;
+    bg_image?: (string | null) | Media;
+  };
+  tabs?:
+    | {
+        tab: {
+          text: string;
+          link: string;
+          content?: {
+            title?: string | null;
+            block_1?: {
+              title?: string | null;
+              text?: string | null;
+            };
+            block_2?: {
+              title?: string | null;
+              text?: string | null;
+            };
+            profits?: {
+              title?: string | null;
+              profit_1?: {
+                title?: string | null;
+                points?:
+                  | {
+                      text?: string | null;
+                      id?: string | null;
+                    }[]
+                  | null;
               };
-              id?: string | null;
-          }[]
-        | null;
-    meta?: {
-        title?: string | null;
-        description?: string | null;
-    };
-    updatedAt: string;
-    createdAt: string;
-    _status?: ('draft' | 'published') | null;
+              profit_2?: {
+                title?: string | null;
+                points?:
+                  | {
+                      text?: string | null;
+                      id?: string | null;
+                    }[]
+                  | null;
+              };
+              profit_3?: {
+                title?: string | null;
+                points?:
+                  | {
+                      text?: string | null;
+                      id?: string | null;
+                    }[]
+                  | null;
+              };
+              profit_4?: {
+                title?: string | null;
+                points?:
+                  | {
+                      text?: string | null;
+                      id?: string | null;
+                    }[]
+                  | null;
+              };
+            };
+            faq?: {
+              title?: string | null;
+              list?:
+                | {
+                    title: string;
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+          };
+        };
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-    id: string;
-    alt?: string | null;
-    updatedAt: string;
-    createdAt: string;
-    url?: string | null;
-    thumbnailURL?: string | null;
-    filename?: string | null;
-    mimeType?: string | null;
-    filesize?: number | null;
-    width?: number | null;
-    height?: number | null;
-    focalX?: number | null;
-    focalY?: number | null;
+  id: string;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-    id: string;
-    name?: string | null;
-    updatedAt: string;
-    createdAt: string;
-    email: string;
-    resetPasswordToken?: string | null;
-    resetPasswordExpiration?: string | null;
-    salt?: string | null;
-    hash?: string | null;
-    loginAttempts?: number | null;
-    lockUntil?: string | null;
-    password?: string | null;
+  id: string;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
-    id: string;
-    /**
-     * Input data provided to the job
-     */
-    input?:
-        | {
+  id: string;
+  /**
+   * Input data provided to the job
+   */
+  input?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  taskStatus?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  completedAt?: string | null;
+  totalTried?: number | null;
+  /**
+   * If hasError is true this job will not be retried
+   */
+  hasError?: boolean | null;
+  /**
+   * If hasError is true, this is the error that caused it
+   */
+  error?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Task execution log
+   */
+  log?:
+    | {
+        executedAt: string;
+        completedAt: string;
+        taskSlug: 'inline' | 'schedulePublish';
+        taskID: string;
+        input?:
+          | {
               [k: string]: unknown;
-          }
-        | unknown[]
-        | string
-        | number
-        | boolean
-        | null;
-    taskStatus?:
-        | {
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        output?:
+          | {
               [k: string]: unknown;
-          }
-        | unknown[]
-        | string
-        | number
-        | boolean
-        | null;
-    completedAt?: string | null;
-    totalTried?: number | null;
-    /**
-     * If hasError is true this job will not be retried
-     */
-    hasError?: boolean | null;
-    /**
-     * If hasError is true, this is the error that caused it
-     */
-    error?:
-        | {
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        state: 'failed' | 'succeeded';
+        error?:
+          | {
               [k: string]: unknown;
-          }
-        | unknown[]
-        | string
-        | number
-        | boolean
-        | null;
-    /**
-     * Task execution log
-     */
-    log?:
-        | {
-              executedAt: string;
-              completedAt: string;
-              taskSlug: 'inline' | 'schedulePublish';
-              taskID: string;
-              input?:
-                  | {
-                        [k: string]: unknown;
-                    }
-                  | unknown[]
-                  | string
-                  | number
-                  | boolean
-                  | null;
-              output?:
-                  | {
-                        [k: string]: unknown;
-                    }
-                  | unknown[]
-                  | string
-                  | number
-                  | boolean
-                  | null;
-              state: 'failed' | 'succeeded';
-              error?:
-                  | {
-                        [k: string]: unknown;
-                    }
-                  | unknown[]
-                  | string
-                  | number
-                  | boolean
-                  | null;
-              id?: string | null;
-          }[]
-        | null;
-    taskSlug?: ('inline' | 'schedulePublish') | null;
-    queue?: string | null;
-    waitUntil?: string | null;
-    processing?: boolean | null;
-    updatedAt: string;
-    createdAt: string;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  taskSlug?: ('inline' | 'schedulePublish') | null;
+  queue?: string | null;
+  waitUntil?: string | null;
+  processing?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-    id: string;
-    document?:
-        | ({
-              relationTo: 'products-pages';
-              value: string | ProductsPage;
-          } | null)
-        | ({
-              relationTo: 'users';
-              value: string | User;
-          } | null)
-        | ({
-              relationTo: 'media';
-              value: string | Media;
-          } | null)
-        | ({
-              relationTo: 'payload-jobs';
-              value: string | PayloadJob;
-          } | null);
-    globalSlug?: string | null;
-    user: {
+  id: string;
+  document?:
+    | ({
+        relationTo: 'products-pages';
+        value: string | ProductsPage;
+      } | null)
+    | ({
         relationTo: 'users';
         value: string | User;
-    };
-    updatedAt: string;
-    createdAt: string;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'payload-jobs';
+        value: string | PayloadJob;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-    id: string;
-    user: {
-        relationTo: 'users';
-        value: string | User;
-    };
-    key?: string | null;
-    value?:
-        | {
-              [k: string]: unknown;
-          }
-        | unknown[]
-        | string
-        | number
-        | boolean
-        | null;
-    updatedAt: string;
-    createdAt: string;
+  id: string;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  key?: string | null;
+  value?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-    id: string;
-    name?: string | null;
-    batch?: number | null;
-    updatedAt: string;
-    createdAt: string;
+  id: string;
+  name?: string | null;
+  batch?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products-pages_select".
  */
 export interface ProductsPagesSelect<T extends boolean = true> {
-    title?: T;
-    slug?: T;
-    welcome?:
-        | T
-        | {
-              uppertitle?: T;
-              title?: T;
-              subtitle?: T;
-              description?: T;
-              icon?: T;
-              bg_image?: T;
-          };
-    tabs?:
-        | T
-        | {
-              tab?:
-                  | T
-                  | {
-                        text?: T;
-                        link?: T;
-                        content?:
+  title?: T;
+  slug?: T;
+  welcome?:
+    | T
+    | {
+        uppertitle?: T;
+        title?: T;
+        subtitle?: T;
+        description?: T;
+        icon?: T;
+        bg_image?: T;
+      };
+  tabs?:
+    | T
+    | {
+        tab?:
+          | T
+          | {
+              text?: T;
+              link?: T;
+              content?:
+                | T
+                | {
+                    title?: T;
+                    block_1?:
+                      | T
+                      | {
+                          title?: T;
+                          text?: T;
+                        };
+                    block_2?:
+                      | T
+                      | {
+                          title?: T;
+                          text?: T;
+                        };
+                    profits?:
+                      | T
+                      | {
+                          title?: T;
+                          profit_1?:
                             | T
                             | {
-                                  title?: T;
-                                  block_1?:
-                                      | T
-                                      | {
-                                            title?: T;
-                                            text?: T;
-                                        };
-                                  block_2?:
-                                      | T
-                                      | {
-                                            title?: T;
-                                            text?: T;
-                                        };
-                                  profits?:
-                                      | T
-                                      | {
-                                            title?: T;
-                                            profit_1?:
-                                                | T
-                                                | {
-                                                      title?: T;
-                                                      points?:
-                                                          | T
-                                                          | {
-                                                                text?: T;
-                                                                id?: T;
-                                                            };
-                                                  };
-                                            profit_2?:
-                                                | T
-                                                | {
-                                                      title?: T;
-                                                      points?:
-                                                          | T
-                                                          | {
-                                                                text?: T;
-                                                                id?: T;
-                                                            };
-                                                  };
-                                            profit_3?:
-                                                | T
-                                                | {
-                                                      title?: T;
-                                                      points?:
-                                                          | T
-                                                          | {
-                                                                text?: T;
-                                                                id?: T;
-                                                            };
-                                                  };
-                                            profit_4?:
-                                                | T
-                                                | {
-                                                      title?: T;
-                                                      points?:
-                                                          | T
-                                                          | {
-                                                                text?: T;
-                                                                id?: T;
-                                                            };
-                                                  };
-                                        };
-                                  faq?:
-                                      | T
-                                      | {
-                                            title?: T;
-                                            list?:
-                                                | T
-                                                | {
-                                                      title?: T;
-                                                      text?: T;
-                                                      id?: T;
-                                                  };
-                                        };
+                                title?: T;
+                                points?:
+                                  | T
+                                  | {
+                                      text?: T;
+                                      id?: T;
+                                    };
                               };
-                    };
-              id?: T;
-          };
-    meta?:
-        | T
-        | {
-              title?: T;
-              description?: T;
-          };
-    updatedAt?: T;
-    createdAt?: T;
-    _status?: T;
+                          profit_2?:
+                            | T
+                            | {
+                                title?: T;
+                                points?:
+                                  | T
+                                  | {
+                                      text?: T;
+                                      id?: T;
+                                    };
+                              };
+                          profit_3?:
+                            | T
+                            | {
+                                title?: T;
+                                points?:
+                                  | T
+                                  | {
+                                      text?: T;
+                                      id?: T;
+                                    };
+                              };
+                          profit_4?:
+                            | T
+                            | {
+                                title?: T;
+                                points?:
+                                  | T
+                                  | {
+                                      text?: T;
+                                      id?: T;
+                                    };
+                              };
+                        };
+                    faq?:
+                      | T
+                      | {
+                          title?: T;
+                          list?:
+                            | T
+                            | {
+                                title?: T;
+                                text?: T;
+                                id?: T;
+                              };
+                        };
+                  };
+            };
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-    name?: T;
-    updatedAt?: T;
-    createdAt?: T;
-    email?: T;
-    resetPasswordToken?: T;
-    resetPasswordExpiration?: T;
-    salt?: T;
-    hash?: T;
-    loginAttempts?: T;
-    lockUntil?: T;
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-    alt?: T;
-    updatedAt?: T;
-    createdAt?: T;
-    url?: T;
-    thumbnailURL?: T;
-    filename?: T;
-    mimeType?: T;
-    filesize?: T;
-    width?: T;
-    height?: T;
-    focalX?: T;
-    focalY?: T;
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs_select".
  */
 export interface PayloadJobsSelect<T extends boolean = true> {
-    input?: T;
-    taskStatus?: T;
-    completedAt?: T;
-    totalTried?: T;
-    hasError?: T;
-    error?: T;
-    log?:
-        | T
-        | {
-              executedAt?: T;
-              completedAt?: T;
-              taskSlug?: T;
-              taskID?: T;
-              input?: T;
-              output?: T;
-              state?: T;
-              error?: T;
-              id?: T;
-          };
-    taskSlug?: T;
-    queue?: T;
-    waitUntil?: T;
-    processing?: T;
-    updatedAt?: T;
-    createdAt?: T;
+  input?: T;
+  taskStatus?: T;
+  completedAt?: T;
+  totalTried?: T;
+  hasError?: T;
+  error?: T;
+  log?:
+    | T
+    | {
+        executedAt?: T;
+        completedAt?: T;
+        taskSlug?: T;
+        taskID?: T;
+        input?: T;
+        output?: T;
+        state?: T;
+        error?: T;
+        id?: T;
+      };
+  taskSlug?: T;
+  queue?: T;
+  waitUntil?: T;
+  processing?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-    document?: T;
-    globalSlug?: T;
-    user?: T;
-    updatedAt?: T;
-    createdAt?: T;
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-    user?: T;
-    key?: T;
-    value?: T;
-    updatedAt?: T;
-    createdAt?: T;
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-    name?: T;
-    batch?: T;
-    updatedAt?: T;
-    createdAt?: T;
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-page".
  */
 export interface HomePage {
-    id: string;
-    welcome: {
-        title: string;
-        description?: string | null;
-    };
-    navigation?:
-        | {
-              link: {
-                  text: string;
-                  link: string;
-                  icon: string | Media;
-              };
-              id?: string | null;
-          }[]
-        | null;
-    advantages?: {
-        title?: string | null;
-        list?:
-            | {
+  id: string;
+  welcome: {
+    title: string;
+    description?: string | null;
+  };
+  navigation?:
+    | {
+        link: {
+          text: string;
+          link: string;
+          icon: string | Media;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  advantages?: {
+    title?: string | null;
+    list?:
+      | {
+          text: string;
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  products?: {
+    title?: string | null;
+    list?:
+      | {
+          product: {
+            title: string;
+            list?:
+              | {
                   text: string;
                   image: string | Media;
                   id?: string | null;
-              }[]
-            | null;
-    };
-    products?: {
-        title?: string | null;
-        list?:
+                }[]
+              | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  partners?: {
+    title?: string | null;
+    list?:
+      | {
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  system_capabilities?: {
+    title?: string | null;
+    list?:
+      | {
+          image: string | Media;
+          title: string;
+          text: string;
+          /**
+           * Логотипы партнеров (не обязательно)
+           */
+          logos?:
             | {
-                  product: {
-                      title: string;
-                      list?:
-                          | {
-                                text: string;
-                                image: string | Media;
-                                id?: string | null;
-                            }[]
-                          | null;
-                  };
-                  id?: string | null;
+                image?: (string | null) | Media;
+                id?: string | null;
               }[]
             | null;
-    };
-    partners?: {
-        title?: string | null;
-        list?:
-            | {
-                  image: string | Media;
-                  id?: string | null;
-              }[]
-            | null;
-    };
-    system_capabilities?: {
-        title?: string | null;
-        list?:
-            | {
-                  image: string | Media;
-                  title: string;
-                  text: string;
-                  /**
-                   * Логотипы партнеров (не обязательно)
-                   */
-                  logos?:
-                      | {
-                            image?: (string | null) | Media;
-                            id?: string | null;
-                        }[]
-                      | null;
-                  id?: string | null;
-              }[]
-            | null;
-    };
-    faq?: {
-        title?: string | null;
-        list?:
-            | {
-                  title: string;
-                  text: string;
-                  id?: string | null;
-              }[]
-            | null;
-    };
-    meta?: {
-        title?: string | null;
-        description?: string | null;
-    };
-    _status?: ('draft' | 'published') | null;
-    updatedAt?: string | null;
-    createdAt?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  faq?: {
+    title?: string | null;
+    list?:
+      | {
+          title: string;
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header".
  */
 export interface Header {
-    id: string;
-    /**
-     * (меню скрыто на главной странице)
-     */
-    nav?:
-        | {
-              text: string;
-              link: string;
-              id?: string | null;
-          }[]
-        | null;
-    buttons?:
-        | {
-              button: {
-                  text: string;
-                  link: string;
-              };
-              id?: string | null;
-          }[]
-        | null;
-    _status?: ('draft' | 'published') | null;
-    updatedAt?: string | null;
-    createdAt?: string | null;
+  id: string;
+  /**
+   * (меню скрыто на главной странице)
+   */
+  nav?:
+    | {
+        text: string;
+        link: string;
+        id?: string | null;
+      }[]
+    | null;
+  buttons?:
+    | {
+        button: {
+          text: string;
+          link: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
 export interface Footer {
-    id: string;
-    nav?:
-        | {
-              list: {
-                  title: string;
-                  links?:
-                      | {
-                            text: string;
-                            link: string;
-                            id?: string | null;
-                        }[]
-                      | null;
-              };
-              id?: string | null;
-          }[]
-        | null;
-    social?:
-        | {
-              network: {
-                  link: string;
-                  image: string | Media;
-              };
-              id?: string | null;
-          }[]
-        | null;
-    info?: string | null;
-    additional_info?: string | null;
-    _status?: ('draft' | 'published') | null;
-    updatedAt?: string | null;
-    createdAt?: string | null;
+  id: string;
+  nav?:
+    | {
+        list: {
+          title: string;
+          links?:
+            | {
+                text: string;
+                link: string;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  social?:
+    | {
+        network: {
+          link: string;
+          image: string | Media;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  info?: string | null;
+  additional_info?: string | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-page_select".
  */
 export interface HomePageSelect<T extends boolean = true> {
-    welcome?:
-        | T
-        | {
-              title?: T;
-              description?: T;
-          };
-    navigation?:
-        | T
-        | {
-              link?:
-                  | T
-                  | {
-                        text?: T;
-                        link?: T;
-                        icon?: T;
-                    };
+  welcome?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  navigation?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              text?: T;
+              link?: T;
+              icon?: T;
+            };
+        id?: T;
+      };
+  advantages?:
+    | T
+    | {
+        title?: T;
+        list?:
+          | T
+          | {
+              text?: T;
+              image?: T;
               id?: T;
-          };
-    advantages?:
-        | T
-        | {
+            };
+      };
+  products?:
+    | T
+    | {
+        title?: T;
+        list?:
+          | T
+          | {
+              product?:
+                | T
+                | {
+                    title?: T;
+                    list?:
+                      | T
+                      | {
+                          text?: T;
+                          image?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+            };
+      };
+  partners?:
+    | T
+    | {
+        title?: T;
+        list?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+      };
+  system_capabilities?:
+    | T
+    | {
+        title?: T;
+        list?:
+          | T
+          | {
+              image?: T;
               title?: T;
-              list?:
-                  | T
-                  | {
-                        text?: T;
-                        image?: T;
-                        id?: T;
-                    };
-          };
-    products?:
-        | T
-        | {
+              text?: T;
+              logos?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+      };
+  faq?:
+    | T
+    | {
+        title?: T;
+        list?:
+          | T
+          | {
               title?: T;
-              list?:
-                  | T
-                  | {
-                        product?:
-                            | T
-                            | {
-                                  title?: T;
-                                  list?:
-                                      | T
-                                      | {
-                                            text?: T;
-                                            image?: T;
-                                            id?: T;
-                                        };
-                              };
-                        id?: T;
-                    };
-          };
-    partners?:
-        | T
-        | {
-              title?: T;
-              list?:
-                  | T
-                  | {
-                        image?: T;
-                        id?: T;
-                    };
-          };
-    system_capabilities?:
-        | T
-        | {
-              title?: T;
-              list?:
-                  | T
-                  | {
-                        image?: T;
-                        title?: T;
-                        text?: T;
-                        logos?:
-                            | T
-                            | {
-                                  image?: T;
-                                  id?: T;
-                              };
-                        id?: T;
-                    };
-          };
-    faq?:
-        | T
-        | {
-              title?: T;
-              list?:
-                  | T
-                  | {
-                        title?: T;
-                        text?: T;
-                        id?: T;
-                    };
-          };
-    meta?:
-        | T
-        | {
-              title?: T;
-              description?: T;
-          };
-    _status?: T;
-    updatedAt?: T;
-    createdAt?: T;
-    globalType?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
-    nav?:
-        | T
-        | {
+  nav?:
+    | T
+    | {
+        text?: T;
+        link?: T;
+        id?: T;
+      };
+  buttons?:
+    | T
+    | {
+        button?:
+          | T
+          | {
               text?: T;
               link?: T;
-              id?: T;
-          };
-    buttons?:
-        | T
-        | {
-              button?:
-                  | T
-                  | {
-                        text?: T;
-                        link?: T;
-                    };
-              id?: T;
-          };
-    _status?: T;
-    updatedAt?: T;
-    createdAt?: T;
-    globalType?: T;
+            };
+        id?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-    nav?:
-        | T
-        | {
-              list?:
-                  | T
-                  | {
-                        title?: T;
-                        links?:
-                            | T
-                            | {
-                                  text?: T;
-                                  link?: T;
-                                  id?: T;
-                              };
-                    };
-              id?: T;
-          };
-    social?:
-        | T
-        | {
-              network?:
-                  | T
-                  | {
-                        link?: T;
-                        image?: T;
-                    };
-              id?: T;
-          };
-    info?: T;
-    additional_info?: T;
-    _status?: T;
-    updatedAt?: T;
-    createdAt?: T;
-    globalType?: T;
+  nav?:
+    | T
+    | {
+        list?:
+          | T
+          | {
+              title?: T;
+              links?:
+                | T
+                | {
+                    text?: T;
+                    link?: T;
+                    id?: T;
+                  };
+            };
+        id?: T;
+      };
+  social?:
+    | T
+    | {
+        network?:
+          | T
+          | {
+              link?: T;
+              image?: T;
+            };
+        id?: T;
+      };
+  info?: T;
+  additional_info?: T;
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TaskSchedulePublish".
  */
 export interface TaskSchedulePublish {
-    input: {
-        type?: ('publish' | 'unpublish') | null;
-        locale?: string | null;
-        doc?: {
-            relationTo: 'products-pages';
-            value: string | ProductsPage;
-        } | null;
-        global?: string | null;
-        user?: (string | null) | User;
-    };
-    output?: unknown;
+  input: {
+    type?: ('publish' | 'unpublish') | null;
+    locale?: string | null;
+    doc?: {
+      relationTo: 'products-pages';
+      value: string | ProductsPage;
+    } | null;
+    global?: string | null;
+    user?: (string | null) | User;
+  };
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-    [k: string]: unknown;
+  [k: string]: unknown;
 }
 
+
 declare module 'payload' {
-    export interface GeneratedTypes extends Config {}
+  export interface GeneratedTypes extends Config {}
 }

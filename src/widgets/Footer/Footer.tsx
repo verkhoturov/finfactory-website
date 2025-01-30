@@ -25,6 +25,8 @@ const NavigationList = ({
 }) => {
     if (!links) return null;
 
+    console.log('footer links', links);
+
     return (
         <div className={styles.navCol}>
             <Heading.H3 color="light">{title}</Heading.H3>
@@ -86,9 +88,7 @@ export const Footer = ({ nav, info, additional_info, social }: FooterProps) => {
                     <div className={styles.secondContentWrapper}>
                         {additional_info && (
                             <span className={styles.text}>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting
-                                industry. Lorem Ipsum has been the industry&apos;s standard dummy
-                                text ever since the 1500s, when an unknown pr
+                                {additional_info}
                             </span>
                         )}
                     </div>

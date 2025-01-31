@@ -8,17 +8,25 @@ interface SimpleCard {
     varinant?: 'default';
     desc: string;
     image: StaticImageData;
+    additionalInfo?: string;
 }
 
 interface SimpleCardLink extends LinkProps {
     varinant?: 'link';
     desc: string;
     image: StaticImageData;
+    additionalInfo?: string;
 }
 
 type SimpleCardProps = SimpleCard | SimpleCardLink;
 
-export const SimpleCard = ({ desc, image, varinant = 'default', ...rest }: SimpleCardProps) => {
+export const SimpleCard = ({
+    desc,
+    image,
+    varinant = 'default',
+    additionalInfo,
+    ...rest
+}: SimpleCardProps) => {
     if (varinant === 'link' && 'href' in rest) {
         return (
             <Link {...rest}>
@@ -31,6 +39,12 @@ export const SimpleCard = ({ desc, image, varinant = 'default', ...rest }: Simpl
                         height={image.height}
                     />
                     <span className={styles.text}>{desc}</span>
+                    {additionalInfo && (
+                        <>
+                            <br />
+                            <span className={styles.info}>{additionalInfo}</span>
+                        </>
+                    )}
                 </div>
             </Link>
         );

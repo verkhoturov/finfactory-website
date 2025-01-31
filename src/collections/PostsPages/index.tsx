@@ -33,11 +33,11 @@ export const PostPages: CollectionConfig<'posts-pages'> = {
         livePreview: {
             url: ({ data, req }) => {
                 const protocol = req.host.includes('localhost') ? 'http:' : 'https:';
-                return `${protocol}//${req.host}/preview/${data.slug}`;
+                return `${protocol}//${req.host}/preview/posts/${data.slug}`;
             },
         },
         preview: (data, { req }) => {
-            return `${req.protocol}//${req.host}/preview/${data.slug}`;
+            return `${req.protocol}//${req.host}/preview/posts/${data.slug}`;
         },
     },
     fields: [

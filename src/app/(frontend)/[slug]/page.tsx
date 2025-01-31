@@ -6,7 +6,7 @@ import { getPayload } from 'payload';
 import React, { cache } from 'react';
 import { Home } from '@/page-templates/home';
 import { ProductPage } from '@/page-templates/product';
-// import { homeStatic } from '@/endpoints/seed/home-static'
+import { BlogPage } from '@/page-templates/blog';
 
 import type { ProductsPage as ProductsPageType, HomePage as HomePageType } from '@/payload-types';
 
@@ -31,22 +31,25 @@ export default async function Page({ params: paramsPromise }: Args) {
     const { slug } = await paramsPromise;
 
     if (slug) {
+        if (slug === 'posts') {
+            const posts = await queryPostsBySlug({ all: true });
+            return <BlogPage posts={posts} />;
+        }
+
         const page = await queryPageBySlug({
             slug,
         });
-        const posts = await queryPostsBySlug();
+        const posts = await queryPostsBySlug({ all: false });
 
         if (!page) {
             return notFound();
         }
 
-        //  console.log('products page', page);
-
         return <ProductPage {...page} posts={posts} />;
     }
 
     const page = await queryHomePage();
-    const posts = await queryPostsBySlug();
+    const posts = await queryPostsBySlug({ all: false });
 
     /*
   if (!page) {
@@ -117,12 +120,12 @@ const queryHomePage = cache(async () => {
     return result || null;
 });
 
-const queryPostsBySlug = cache(async () => {
+const queryPostsBySlug = cache(async ({ all }: { all?: boolean }) => {
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.find({
         collection: 'posts-pages',
-        limit: 3,
+        limit: all ? 1000 : 3,
     });
 
     return result.docs || null;

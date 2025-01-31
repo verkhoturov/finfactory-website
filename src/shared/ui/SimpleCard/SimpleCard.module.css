@@ -20,6 +20,15 @@
     white-space: pre-line;
 }
 
+.info {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    color: gray;
+    margin: 6px 0;
+    display: block;
+}
+
 @media (max-width: 1023px) {
     .wrapper {
         max-width: 100%;

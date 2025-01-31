@@ -2,6 +2,7 @@ import cn from 'classnames';
 import { Layout } from '@/shared/ui/Layout';
 import { Heading } from '@/shared/ui/Heading';
 import { SimpleCard } from '@/shared/ui/SimpleCard';
+import { formattedDate } from '@/shared/utils/dates';
 
 import styles from './Blog.module.css';
 
@@ -9,19 +10,21 @@ import type { PostsPage as Posts, Media } from '@/payload-types';
 
 interface BlogProps {
     posts: Posts[];
+    allPostsView?: boolean;
 }
 
-export const Blog = ({ posts }: BlogProps) => {
+export const Blog = ({ posts, allPostsView }: BlogProps) => {
     if (!posts || posts.length === 0) return null;
 
     return (
         <Layout.Container>
             <div className={styles.wrapper}>
-                <Heading.H2>Блог и статьи</Heading.H2>
+                {!allPostsView && <Heading.H2>Блог и статьи</Heading.H2>}
 
                 <div
                     className={cn(styles.row, {
                         [styles.small]: posts.length < 3,
+                        [styles.allPosts]: allPostsView,
                     })}
                 >
                     {posts?.map((item, index) => (
@@ -35,6 +38,7 @@ export const Blog = ({ posts }: BlogProps) => {
                                 height: (item.preview_image as Media).height || 100,
                             }}
                             desc={item.title}
+                            additionalInfo={allPostsView ? formattedDate(item.updatedAt) : ''}
                         />
                     ))}
                 </div>

@@ -18,13 +18,17 @@ import { HomePage } from './globals/HomePage';
 import { Header } from './globals/Header';
 import { Footer } from './globals/Footer';
 
-import type { ProductsPage as ProductsPageType, HomePage as HomePageType } from '@/payload-types';
+import type {
+    ProductsPage as ProductsPageType,
+    HomePage as HomePageType,
+    PostsPage as PostsType,
+} from '@/payload-types';
 import { seoPlugin } from '@payloadcms/plugin-seo';
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types';
 
 import { getServerSideURL } from '@/shared/utils/getURL';
 
-type Page = ProductsPageType | HomePageType;
+type Page = ProductsPageType | HomePageType | PostsType;
 
 const generateTitle: GenerateTitle<Page> = ({ doc }) => {
     if ('title' in doc) {
@@ -33,8 +37,12 @@ const generateTitle: GenerateTitle<Page> = ({ doc }) => {
     return 'Finfactory';
 };
 
-const generateURL: GenerateURL<Page> = ({ doc }) => {
+const generateURL: GenerateURL<Page> = ({ doc, collectionSlug }) => {
     const url = getServerSideURL();
+
+    if (collectionSlug === 'posts-pages' && 'slug' in doc) {
+        return `${url}/posts/${doc.slug}`;
+    }
 
     if ('slug' in doc) {
         return doc?.slug ? `${url}/${doc.slug}` : url;

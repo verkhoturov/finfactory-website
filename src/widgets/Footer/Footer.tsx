@@ -94,11 +94,11 @@ export const Footer = ({ nav, info, additional_info, social }: FooterProps) => {
 
                     {social && (
                         <div className={styles.soc}>
-                            {social.map(({ network: { link, image }, id }, i) => (
+                            {social.map(({ network: { link, image, name }, id }, i) => (
                                 <Link key={id || i} href={link}>
                                     <Image
-                                        src={(image as Media).url || ''}
-                                        alt={''}
+                                        src={(image as Media)?.url || ''}
+                                        alt={name || ''}
                                         width={20}
                                         height={20}
                                     />

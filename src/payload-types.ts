@@ -788,6 +788,7 @@ export interface Footer {
         network: {
           link: string;
           image: string | Media;
+          name?: string | null;
         };
         id?: string | null;
       }[]
@@ -966,6 +967,7 @@ export interface FooterSelect<T extends boolean = true> {
           | {
               link?: T;
               image?: T;
+              name?: T;
             };
         id?: T;
       };

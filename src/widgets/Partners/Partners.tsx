@@ -18,10 +18,10 @@ export const Partners = ({ partners }: PartnersProps) => {
                     {partners?.list?.map((item, index) => (
                         <Image
                             key={index}
-                            src={(item.image as Media).url || ''}
+                            src={(item.image as Media)?.url || ''}
                             alt={''}
-                            width={((item.image as Media).width || 100) / 3.25}
-                            height={((item.image as Media).height || 100) / 3.25}
+                            width={((item.image as Media)?.width || 100) / 3.25}
+                            height={((item.image as Media)?.height || 100) / 3.25}
                         />
                     ))}
                 </div>

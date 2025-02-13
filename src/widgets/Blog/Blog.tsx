@@ -27,20 +27,23 @@ export const Blog = ({ posts, allPostsView }: BlogProps) => {
                         [styles.allPosts]: allPostsView,
                     })}
                 >
-                    {posts?.map((item, index) => (
-                        <SimpleCard
-                            key={index}
-                            varinant="link"
-                            href={`/posts/${item.slug}`}
-                            image={{
-                                src: (item.preview_image as Media).url || '',
-                                width: (item.preview_image as Media).width || 100,
-                                height: (item.preview_image as Media).height || 100,
-                            }}
-                            desc={item.title}
-                            additionalInfo={allPostsView ? formattedDate(item.updatedAt) : ''}
-                        />
-                    ))}
+                    {posts?.map((item, index) => {
+                        if (!item.preview_image) return null;
+                        return (
+                            <SimpleCard
+                                key={`post-${item.slug}-${index}`}
+                                varinant="link"
+                                href={`/posts/${item.slug}`}
+                                image={{
+                                    src: (item.preview_image as Media)?.url || '',
+                                    width: (item.preview_image as Media)?.width || 100,
+                                    height: (item.preview_image as Media)?.height || 100,
+                                }}
+                                desc={item.title}
+                                additionalInfo={allPostsView ? formattedDate(item.updatedAt) : ''}
+                            />
+                        );
+                    })}
                 </div>
             </div>
         </Layout.Container>

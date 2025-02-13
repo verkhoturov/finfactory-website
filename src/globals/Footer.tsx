@@ -87,6 +87,11 @@ export const Footer: GlobalConfig = {
                             relationTo: 'media',
                             required: true,
                         },
+                        {
+                            name: 'name',
+                            label: 'Название',
+                            type: 'text',
+                        },
                     ],
                 },
             ],

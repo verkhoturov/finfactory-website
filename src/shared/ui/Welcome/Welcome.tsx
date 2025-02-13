@@ -22,7 +22,7 @@ const HomePageMenu = ({ navList }: { navList: NavType }) => {
         <ul>
             {navigation.map(({ link }, i) => (
                 <li key={i}>
-                    <NavCard href={link.link} iconUrl={(link.icon as Media).url}>
+                    <NavCard href={link.link} iconUrl={(link.icon as Media)?.url}>
                         {link.text}
                     </NavCard>
                 </li>

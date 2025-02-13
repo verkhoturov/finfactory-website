@@ -19,9 +19,9 @@ export const WhyWe = ({ advantages }: WhyWeProps) => {
                         <SimpleCard
                             key={index}
                             image={{
-                                src: (item.image as Media).url || '',
-                                width: (item.image as Media).width || 100,
-                                height: (item.image as Media).height || 100,
+                                src: (item.image as Media)?.url || '',
+                                width: (item.image as Media)?.width || 100,
+                                height: (item.image as Media)?.height || 100,
                             }}
                             desc={item.text}
                         />

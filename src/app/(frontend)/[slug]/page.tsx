@@ -1,31 +1,24 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-// import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config';
 import { getPayload } from 'payload';
-import React, { cache } from 'react';
+import React from 'react';
 import { Home } from '@/page-templates/home';
 import { ProductPage } from '@/page-templates/product';
 import { BlogPage } from '@/page-templates/blog';
 
 import type { ProductsPage as ProductsPageType, HomePage as HomePageType } from '@/payload-types';
 
-/*
-import { RenderBlocks } from '@/blocks/RenderBlocks'
-import { RenderHero } from '@/heros/RenderHero' 
-import PageClient from './page.client'
-import { LivePreviewListener } from '@/components/LivePreviewListener'
-*/
-
 import { generateMeta } from '@/shared/utils/generateMeta';
 
 type Page = ProductsPageType | HomePageType;
 
 type Args = {
-    params: Promise<{
-        slug?: string;
-    }>;
+    params: Promise<{ slug?: string }>;
 };
+
+// ISR: Страница обновляется раз в 60 секунд
+export const revalidate = 60;
 
 export default async function Page({ params: paramsPromise }: Args) {
     const { slug } = await paramsPromise;
@@ -36,10 +29,10 @@ export default async function Page({ params: paramsPromise }: Args) {
             return <BlogPage posts={posts} />;
         }
 
-        const page = await queryPageBySlug({
-            slug,
-        });
-        const posts = await queryPostsBySlug({ all: false });
+        const [page, posts] = await Promise.all([
+            queryPageBySlug({ slug }),
+            queryPostsBySlug({ all: false }),
+        ]);
 
         if (!page) {
             return notFound();
@@ -48,43 +41,33 @@ export default async function Page({ params: paramsPromise }: Args) {
         return <ProductPage {...page} posts={posts} />;
     }
 
-    const page = await queryHomePage();
-    const posts = await queryPostsBySlug({ all: false });
-
-    /*
-  if (!page) {
-    return <PayloadRedirects url={url} />
-  }
-  */
-
-    // const { hero, layout } = page
-
-    // return (
-    // <article>
-    // <PageClient />
-    // {/* Allows redirects for valid pages too */}
-    /// <PayloadRedirects disableNotFound url={url} />
-
-    // {/* draft && <LivePreviewListener /> */}
-
-    // <RenderHero {...hero} />
-    // <RenderBlocks blocks={layout} />
-    // </article>
-    // )
-
-    // console.log('home page', page);
+    const [page, posts] = await Promise.all([queryHomePage(), queryPostsBySlug({ all: false })]);
 
     return <Home {...page} posts={posts} />;
 }
 
+// ISR: Генерация статических параметров (Next.js создаёт HTML при билде)
+export async function generateStaticParams() {
+    const payload = await getPayload({ config: configPromise });
+
+    const pages = await payload.find({
+        collection: 'products-pages',
+        limit: 100, // Ограничение на количество страниц для предгенерации
+    });
+
+    return pages.docs.map((page) => ({
+        slug: page.slug,
+    }));
+}
+
+// Генерация SEO-мета с ISR
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
     const { slug = '' } = await paramsPromise;
+
     let page: Page | null;
 
     if (slug) {
-        page = await queryPageBySlug({
-            slug,
-        });
+        page = await queryPageBySlug({ slug });
     } else {
         page = await queryHomePage();
     }
@@ -92,25 +75,23 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
     return generateMeta({ doc: page });
 }
 
-const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
+// Функции для получения данных
+const queryPageBySlug = async ({ slug }: { slug: string }) => {
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.find({
         collection: 'products-pages',
-        // draft,
         limit: 1,
         pagination: false,
         where: {
-            slug: {
-                equals: slug,
-            },
+            slug: { equals: slug },
         },
     });
 
     return result.docs?.[0] || null;
-});
+};
 
-const queryHomePage = cache(async () => {
+const queryHomePage = async () => {
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.findGlobal({
@@ -118,9 +99,9 @@ const queryHomePage = cache(async () => {
     });
 
     return result || null;
-});
+};
 
-const queryPostsBySlug = cache(async ({ all }: { all?: boolean }) => {
+const queryPostsBySlug = async ({ all }: { all?: boolean }) => {
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.find({
@@ -129,4 +110,4 @@ const queryPostsBySlug = cache(async ({ all }: { all?: boolean }) => {
     });
 
     return result.docs || null;
-});
+};

@@ -17,16 +17,16 @@ export const ProductPage = ({
 }) => {
     return (
         <>
-            <Welcome
-                uppertitle={welcome.uppertitle || ''}
-                title={welcome.title}
-                subtitle={welcome.subtitle || ''}
-                desc={welcome.description}
-                backgroundImage={(welcome.bg_image as Media)?.url || ''}
-                icon={welcome.icon as Media}
-                tabs={tabs || []}
-            />
             <Suspense>
+                <Welcome
+                    uppertitle={welcome.uppertitle || ''}
+                    title={welcome.title}
+                    subtitle={welcome.subtitle || ''}
+                    desc={welcome.description}
+                    backgroundImage={(welcome.bg_image as Media)?.url || ''}
+                    icon={welcome.icon as Media}
+                    tabs={tabs || []}
+                />
                 <ServiceInfo tabs={tabs || []} />
                 <Profit tabs={tabs || []} />
             </Suspense>

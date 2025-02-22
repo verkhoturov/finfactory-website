@@ -1,7 +1,7 @@
 import React, { cache } from 'react';
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
-import { Roboto } from 'next/font/google';
+import { Roboto, Inter } from 'next/font/google';
 import { UIKitProvider } from '@/shared/ui/UIKitProvider';
 import { Layout } from '@/shared/ui/Layout';
 import { Header } from '@/widgets/Header';
@@ -16,6 +16,11 @@ const roboto = Roboto({
     subsets: ['latin'],
 });
 
+const inter = Inter({
+    weight: ['400', '700'],
+    subsets: ['latin'],
+});
+
 export const PageLayout = ({
     children,
     footerData,
@@ -26,7 +31,11 @@ export const PageLayout = ({
     headerData: HeaderData;
 }) => {
     return (
-        <html lang="ru" suppressHydrationWarning className={roboto.className}>
+        <html
+            lang="ru"
+            suppressHydrationWarning
+            className={`${inter.className} ${roboto.className}`}
+        >
             <body>
                 <UIKitProvider>
                     <Layout.Page>

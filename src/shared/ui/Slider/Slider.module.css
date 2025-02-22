@@ -1,0 +1,38 @@
+.wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev {
+    left: -42px;
+}
+
+.next {
+    right: -42px;
+}
+
+@media (max-width: 1139px) {
+    .prev {
+        left: 21px;
+    }
+
+    .next {
+        right: 21px;
+    }
+}
+
+@media (max-width: 1023px) {
+    .prev,
+    .next {
+        display: none;
+    }
+}

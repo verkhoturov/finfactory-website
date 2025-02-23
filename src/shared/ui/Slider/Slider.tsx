@@ -17,9 +17,6 @@ interface SliderProps {
 
 export const Slider = ({ slidesPerView = 1, isLoop = true, content }: SliderProps) => {
     const swiperRef = React.useRef<SwiperType>(null);
-
-    console.log('render');
-
     return (
         <div className={styles.wrapper}>
             <Swiper

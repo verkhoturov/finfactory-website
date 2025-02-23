@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import Image from 'next/image';
 import { Layout } from '@/shared/ui/Layout';
@@ -48,6 +46,7 @@ const Slide = ({
 export const Feedback = () => {
     const slides = [
         <Slide
+            key={0}
             photoSrc={photoImg.src}
             name={'Иван Иванов'}
             position="CEO Develop Metal"
@@ -55,6 +54,7 @@ export const Feedback = () => {
             date="11.11.24"
         />,
         <Slide
+            key={1}
             photoSrc={photoImg.src}
             name={'Иван Иванов'}
             position="CEO Develop Metal"

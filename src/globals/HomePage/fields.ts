@@ -136,3 +136,37 @@ export const FAQListFields: Field[] = [
         },
     },
 ];
+
+export const FeedbackListFields: Field[] = [
+    {
+        name: 'name',
+        label: 'Имя',
+        type: 'text',
+        required: true,
+    },
+    {
+        name: 'position',
+        label: 'Должность',
+        type: 'text',
+    },
+    {
+        name: 'photo',
+        label: 'Фото',
+        type: 'upload',
+        relationTo: 'media',
+    },
+    {
+        name: 'text',
+        label: 'Ответ',
+        type: 'textarea',
+        required: true,
+        admin: {
+            rows: 5,
+        },
+    },
+    {
+        name: 'date',
+        label: 'Дата',
+        type: 'date',
+    },
+];

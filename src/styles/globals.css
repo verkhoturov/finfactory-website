@@ -1,9 +1,3 @@
-:root {
-    --swiper-navigation-color: black;
-    --swiper-navigation-size: 20px !important;
-    --swiper-navigation-sides-offset: 10px;
-}
-
 html,
 body {
     max-width: 100vw;
@@ -44,9 +38,4 @@ div[data-scope='select'][data-part='positioner'] > div[role='listbox'] > div[rol
     font-weight: 700;
     line-height: 16.41px;
     color: #0d448d;
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-    font-weight: 900;
 }

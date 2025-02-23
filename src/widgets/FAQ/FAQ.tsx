@@ -16,7 +16,7 @@ export const FAQ = ({ faq }: FAQProps) => {
     return (
         <Layout.Container>
             <div className={styles.wrapper}>
-                {faq?.title && <Heading.H2>FAQ</Heading.H2>}
+                {faq?.title && <Heading.H2>{faq.title}</Heading.H2>}
 
                 <AccordionRoot multiple>
                     {faq?.list?.map((item, index) => (

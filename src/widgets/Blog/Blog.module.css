@@ -38,6 +38,6 @@
     }
 
     .row.small {
-        gap: 20;
+        gap: 20px;
     }
 }

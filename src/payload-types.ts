@@ -715,6 +715,19 @@ export interface HomePage {
         }[]
       | null;
   };
+  feedback?: {
+    title?: string | null;
+    list?:
+      | {
+          name: string;
+          position?: string | null;
+          photo?: (string | null) | Media;
+          text: string;
+          date?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
   faq?: {
     title?: string | null;
     list?:
@@ -883,6 +896,21 @@ export interface HomePageSelect<T extends boolean = true> {
                     image?: T;
                     id?: T;
                   };
+              id?: T;
+            };
+      };
+  feedback?:
+    | T
+    | {
+        title?: T;
+        list?:
+          | T
+          | {
+              name?: T;
+              position?: T;
+              photo?: T;
+              text?: T;
+              date?: T;
               id?: T;
             };
       };

@@ -20,7 +20,7 @@ export const Home = (
             <Products products={props.products} />
             <Partners partners={props.partners} />
             <SystemCapabilities system_capabilities={props.system_capabilities} />
-            <Feedback />
+            <Feedback feedback={props.feedback} />
             <FAQ faq={props.faq} />
             <Blog posts={props.posts || []} />
         </>

@@ -1,0 +1,26 @@
+:root {
+    --swiper-navigation-color: black;
+    --swiper-navigation-size: 20px !important;
+    --swiper-navigation-sides-offset: 10px;
+    --swiper-pagination-bottom: 30px !important;
+    --swiper-pagination-color: #f3b919 !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    font-weight: 900;
+}
+
+.swiper-pagination {
+    display: none;
+}
+
+@media (max-width: 1023px) {
+    .swiper-pagination {
+        display: block;
+    }
+
+    .swiper {
+        padding: 40px 0 80px !important;
+    }
+}

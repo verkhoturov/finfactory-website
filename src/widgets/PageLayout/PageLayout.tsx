@@ -10,6 +10,7 @@ import { Footer } from '@/widgets/Footer';
 import type { Footer as FooterData, Header as HeaderData } from '@/payload-types';
 
 import '@/styles/globals.css';
+import '@/styles/swiper.css';
 
 const roboto = Roboto({
     weight: ['400', '700', '900'],

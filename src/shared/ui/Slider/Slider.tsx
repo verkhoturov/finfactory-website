@@ -2,10 +2,11 @@
 
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 import styles from './Slider.module.css';
 
@@ -23,10 +24,11 @@ export const Slider = ({ slidesPerView = 1, isLoop = true, content }: SliderProp
                 spaceBetween={50}
                 slidesPerView={slidesPerView}
                 loop={isLoop}
-                modules={[Navigation]}
+                modules={[Navigation, Pagination]}
                 onBeforeInit={(swiper) => {
                     swiperRef.current = swiper;
                 }}
+                pagination={true}
             >
                 {content.map((item, index) => (
                     <SwiperSlide key={index}>{item}</SwiperSlide>

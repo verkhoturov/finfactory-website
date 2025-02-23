@@ -12,7 +12,7 @@ export const Partners = ({ partners }: PartnersProps) => {
     return (
         <Layout.Container>
             <div className={styles.wrapper}>
-                {partners?.title && <Heading.H2>Наши партнеры</Heading.H2>}
+                {partners?.title && <Heading.H2>{partners.title}</Heading.H2>}
 
                 <div className={styles.row}>
                     {partners?.list?.map((item, index) => (

@@ -2,12 +2,24 @@ import React from 'react';
 import Image from 'next/image';
 import { Layout } from '@/shared/ui/Layout';
 import { Heading } from '@/shared/ui/Heading';
-
 import { Slider } from '@/shared/ui/Slider';
+
+import type { HomePage as HomePageType, Media } from '@/payload-types';
 
 import styles from './Feedback.module.css';
 
-import photoImg from './photo.png';
+function formatDateToDDMMYY(isoString: string) {
+    // Создаем объект Date из исходной строки
+    const date = new Date(isoString);
+
+    // Получаем день, месяц, год
+    const day = String(date.getDate()).padStart(2, '0'); // '01' ... '31'
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // '01' ... '12'
+    const year = String(date.getFullYear()).slice(-2); // '24'
+
+    // Формируем итоговую строку в формате "дд.мм.гг"
+    return `${day}.${month}.${year}`;
+}
 
 const Slide = ({
     photoSrc,
@@ -18,9 +30,9 @@ const Slide = ({
 }: {
     photoSrc: string;
     name: string;
-    position: string;
+    position?: string;
     text: string;
-    date: string;
+    date?: string;
 }) => {
     return (
         <div className={styles.slide}>
@@ -31,42 +43,39 @@ const Slide = ({
             <div className={styles.content}>
                 <div className={styles.title}>
                     <Heading.H2>{name}</Heading.H2>
-                    <p className={styles.position}>{position}</p>
+                    {position && <p className={styles.position}>{position}</p>}
                 </div>
 
                 <div className={styles.text}>
                     <p>{text}</p>
-                    <span className={styles.date}>{date}</span>
+                    {date && <span className={styles.date}>{date}</span>}
                 </div>
             </div>
         </div>
     );
 };
 
-export const Feedback = () => {
-    const slides = [
+type FeedbackProps = Pick<HomePageType, 'feedback'>;
+
+export const Feedback = ({ feedback }: FeedbackProps) => {
+
+    const slides = feedback?.list?.map((item, index) => (
         <Slide
-            key={0}
-            photoSrc={photoImg.src}
-            name={'Иван Иванов'}
-            position="CEO Develop Metal"
-            text="Компанда FINFACTORY помогла нам быстро и надежно решить вопросы финансирования. Их профессионализм и гибкость позволили нам сосредоточиться на развитии бизнеса, зная, что финансовая поддержка в надежных руках"
-            date="11.11.24"
-        />,
-        <Slide
-            key={1}
-            photoSrc={photoImg.src}
-            name={'Иван Иванов'}
-            position="CEO Develop Metal"
-            text="Компанда FINFACTORY помогла нам быстро и надежно решить вопросы финансирования. Их профессионализм и гибкость позволили нам сосредоточиться на развитии бизнеса, зная, что финансовая поддержка в надежных руках"
-            date="11.11.24"
-        />,
-    ];
+            key={index}
+            photoSrc={(item.photo as Media)?.url || ''}
+            name={item.name}
+            position={item.position || ''}
+            text={item.text}
+            date={item.date ? formatDateToDDMMYY(item.date) : ''}
+        />
+    ));
+
+    if (!slides || slides.length === 0) return null;
 
     return (
         <Layout.Container>
             <div className={styles.wrapper}>
-                <Heading.H2>Отзывы и кейсы</Heading.H2>
+                {feedback?.title && <Heading.H2>{feedback.title}</Heading.H2>}
 
                 <div className={styles.sliderWrapper}>
                     <Slider content={slides} />

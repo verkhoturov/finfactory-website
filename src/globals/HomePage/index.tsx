@@ -15,6 +15,7 @@ import {
     ProductsFields,
     FAQListFields,
     SystemCapabilitiesFields,
+    FeedbackListFields,
 } from './fields';
 
 export const HomePage: GlobalConfig = {
@@ -168,6 +169,29 @@ export const HomePage: GlobalConfig = {
                     minRows: 1,
                     maxRows: 9,
                     fields: SystemCapabilitiesFields,
+                },
+            ],
+        },
+        {
+            name: 'feedback',
+            label: 'Отзывы',
+            type: 'group',
+            fields: [
+                {
+                    name: 'title',
+                    label: 'Заголовок',
+                    type: 'textarea',
+                },
+                {
+                    type: 'array',
+                    name: 'list',
+                    label: 'Список',
+                    labels: {
+                        singular: 'Отзыв',
+                        plural: 'Отзывы',
+                    },
+                    minRows: 1,
+                    fields: FeedbackListFields,
                 },
             ],
         },

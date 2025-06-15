@@ -18,7 +18,7 @@ type Args = {
 };
 
 // ISR: Страница обновляется раз в 60 секунд
-export const revalidate = 60;
+// export const revalidate = 60;
 
 export default async function Page({ params: paramsPromise }: Args) {
     const { slug } = await paramsPromise;
@@ -47,6 +47,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 // ISR: Генерация статических параметров (Next.js создаёт HTML при билде)
+/*
 export async function generateStaticParams() {
     const payload = await getPayload({ config: configPromise });
 
@@ -59,8 +60,10 @@ export async function generateStaticParams() {
         slug: page.slug,
     }));
 }
+*/
 
 // Генерация SEO-мета с ISR
+/*
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
     const { slug = '' } = await paramsPromise;
 
@@ -74,6 +77,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 
     return generateMeta({ doc: page });
 }
+*/
 
 // Функции для получения данных
 const queryPageBySlug = async ({ slug }: { slug: string }) => {

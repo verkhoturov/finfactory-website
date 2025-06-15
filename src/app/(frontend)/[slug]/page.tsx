@@ -23,6 +23,8 @@ type Args = {
 export default async function Page({ params: paramsPromise }: Args) {
     const { slug } = await paramsPromise;
 
+    console.log("SLUG", slug)
+
     if (slug) {
         if (slug === 'posts') {
             const posts = await queryPostsBySlug({ all: true });
@@ -42,6 +44,8 @@ export default async function Page({ params: paramsPromise }: Args) {
     }
 
     const [page, posts] = await Promise.all([queryHomePage(), queryPostsBySlug({ all: false })]);
+
+    console.log("PAGE", page)
 
     return <Home {...page} posts={posts} />;
 }

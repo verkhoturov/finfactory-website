@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import configPromise from '@payload-config';
 import { getPayload } from 'payload';
-import React from 'react';
+import React, { cache } from 'react';
 import { Home } from '@/page-templates/home';
 import { ProductPage } from '@/page-templates/product';
 import { BlogPage } from '@/page-templates/blog';
@@ -14,28 +14,24 @@ import { generateMeta } from '@/shared/utils/generateMeta';
 type Page = ProductsPageType | HomePageType;
 
 type Args = {
-    params: Promise<{ slug?: string }>;
+    params: Promise<{
+        slug?: string;
+    }>;
 };
- 
-export const dynamic = 'force-dynamic';
 
 export default async function Page({ params: paramsPromise }: Args) {
     const { slug } = await paramsPromise;
 
-    console.log("test SLUG", slug)
-
     if (slug) {
         if (slug === 'posts') {
             const posts = await queryPostsBySlug({ all: true });
-
-            if(posts) return <BlogPage posts={posts} />;
-            return notFound();
+            return <BlogPage posts={posts} />;
         }
 
-        const [page, posts] = await Promise.all([
-            queryPageBySlug({ slug }),
-            queryPostsBySlug({ all: false }),
-        ]);
+        const page = await queryPageBySlug({
+            slug,
+        });
+        const posts = await queryPostsBySlug({ all: false });
 
         if (!page) {
             return notFound();
@@ -44,36 +40,46 @@ export default async function Page({ params: paramsPromise }: Args) {
         return <ProductPage {...page} posts={posts} />;
     }
 
-    const [page, posts] = await Promise.all([queryHomePage(), queryPostsBySlug({ all: false })]);
+    const page = await queryHomePage();
+    const posts = await queryPostsBySlug({ all: false });
 
-
-    console.log("test PAGE", page)
-
-    if(page && posts) return <Home {...page} posts={posts} />;
-
-    return notFound();
+    return <Home {...page} posts={posts} />;
 }
- 
 
-// Функции для получения данных
-const queryPageBySlug = async ({ slug }: { slug: string }) => {
+export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
+    const { slug = '' } = await paramsPromise;
+    let page: Page | null;
+
+    if (slug) {
+        page = await queryPageBySlug({
+            slug,
+        });
+    } else {
+        page = await queryHomePage();
+    }
+
+    return generateMeta({ doc: page });
+}
+
+const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.find({
         collection: 'products-pages',
+        // draft,
         limit: 1,
         pagination: false,
         where: {
-            slug: { equals: slug },
+            slug: {
+                equals: slug,
+            },
         },
     });
 
     return result.docs?.[0] || null;
-};
+});
 
-const queryHomePage = async () => {
-    try {
-
+const queryHomePage = cache(async () => {
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.findGlobal({
@@ -81,32 +87,15 @@ const queryHomePage = async () => {
     });
 
     return result || null;
-    } catch(e) {
-        if (e instanceof Error) {
-            console.error('Главная страница, ошибка:', e.message);
-          } else {
-            console.error('Главная страница, неизвестная ошибка:', e);
-          }
-          throw e; 
-    }
-};
+});
 
-const queryPostsBySlug = async ({ all }: { all?: boolean }) => {
-    try {
-        const payload = await getPayload({ config: configPromise });
+const queryPostsBySlug = cache(async ({ all }: { all?: boolean }) => {
+    const payload = await getPayload({ config: configPromise });
 
-        const result = await payload.find({
-            collection: 'posts-pages',
-            limit: all ? 1000 : 3,
-        });
-    
-        return result.docs || null;
-    } catch(e) {
-        if (e instanceof Error) {
-            console.error('Ошибка:', e.message);
-          } else {
-            console.error('Неизвестная ошибка:', e);
-          }
-          throw e; 
-    }
-};
+    const result = await payload.find({
+        collection: 'posts-pages',
+        limit: all ? 1000 : 3,
+    });
+
+    return result.docs || null;
+});

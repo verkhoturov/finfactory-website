@@ -16,9 +16,8 @@ type Page = ProductsPageType | HomePageType;
 type Args = {
     params: Promise<{ slug?: string }>;
 };
-
-// ISR: Страница обновляется раз в 60 секунд
-// export const revalidate = 60;
+ 
+export const dynamic = 'force-dynamic';
 
 export default async function Page({ params: paramsPromise }: Args) {
     const { slug } = await paramsPromise;
@@ -54,39 +53,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
     return notFound();
 }
-
-// ISR: Генерация статических параметров (Next.js создаёт HTML при билде)
-/*
-export async function generateStaticParams() {
-    const payload = await getPayload({ config: configPromise });
-
-    const pages = await payload.find({
-        collection: 'products-pages',
-        limit: 100, // Ограничение на количество страниц для предгенерации
-    });
-
-    return pages.docs.map((page) => ({
-        slug: page.slug,
-    }));
-}
-*/
-
-// Генерация SEO-мета с ISR
-/*
-export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-    const { slug = '' } = await paramsPromise;
-
-    let page: Page | null;
-
-    if (slug) {
-        page = await queryPageBySlug({ slug });
-    } else {
-        page = await queryHomePage();
-    }
-
-    return generateMeta({ doc: page });
-}
-*/
+ 
 
 // Функции для получения данных
 const queryPageBySlug = async ({ slug }: { slug: string }) => {
@@ -120,6 +87,7 @@ const queryHomePage = async () => {
           } else {
             console.error('Главная страница, неизвестная ошибка:', e);
           }
+          throw e; 
     }
 };
 
@@ -139,5 +107,6 @@ const queryPostsBySlug = async ({ all }: { all?: boolean }) => {
           } else {
             console.error('Неизвестная ошибка:', e);
           }
+          throw e; 
     }
 };

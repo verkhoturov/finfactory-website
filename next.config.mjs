@@ -12,6 +12,7 @@ const nextConfig = {
       {
         hostname: 'localhost',
       },
+      /*
       {
         protocol: 'http',
         hostname: "beta.finfactory.one",
@@ -23,6 +24,7 @@ const nextConfig = {
         port: '3000',
         pathname: '/uploads/**',
       },
+      */
     ],
   },
 }

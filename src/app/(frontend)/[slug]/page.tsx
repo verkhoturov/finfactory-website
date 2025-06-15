@@ -23,12 +23,14 @@ type Args = {
 export default async function Page({ params: paramsPromise }: Args) {
     const { slug } = await paramsPromise;
 
-    console.log("SLUG", slug)
+    console.log("test SLUG", slug)
 
     if (slug) {
         if (slug === 'posts') {
             const posts = await queryPostsBySlug({ all: true });
-            return <BlogPage posts={posts} />;
+
+            if(posts) return <BlogPage posts={posts} />;
+            return notFound();
         }
 
         const [page, posts] = await Promise.all([
@@ -45,9 +47,12 @@ export default async function Page({ params: paramsPromise }: Args) {
 
     const [page, posts] = await Promise.all([queryHomePage(), queryPostsBySlug({ all: false })]);
 
-    console.log("PAGE", page)
 
-    return <Home {...page} posts={posts} />;
+    console.log("test PAGE", page)
+
+    if(page && posts) return <Home {...page} posts={posts} />;
+
+    return notFound();
 }
 
 // ISR: Генерация статических параметров (Next.js создаёт HTML при билде)
@@ -100,6 +105,8 @@ const queryPageBySlug = async ({ slug }: { slug: string }) => {
 };
 
 const queryHomePage = async () => {
+    try {
+
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.findGlobal({
@@ -107,15 +114,30 @@ const queryHomePage = async () => {
     });
 
     return result || null;
+    } catch(e) {
+        if (e instanceof Error) {
+            console.error('Главная страница, ошибка:', e.message);
+          } else {
+            console.error('Главная страница, неизвестная ошибка:', e);
+          }
+    }
 };
 
 const queryPostsBySlug = async ({ all }: { all?: boolean }) => {
-    const payload = await getPayload({ config: configPromise });
+    try {
+        const payload = await getPayload({ config: configPromise });
 
-    const result = await payload.find({
-        collection: 'posts-pages',
-        limit: all ? 1000 : 3,
-    });
-
-    return result.docs || null;
+        const result = await payload.find({
+            collection: 'posts-pages',
+            limit: all ? 1000 : 3,
+        });
+    
+        return result.docs || null;
+    } catch(e) {
+        if (e instanceof Error) {
+            console.error('Ошибка:', e.message);
+          } else {
+            console.error('Неизвестная ошибка:', e);
+          }
+    }
 };

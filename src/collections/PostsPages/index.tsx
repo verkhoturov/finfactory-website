@@ -36,8 +36,8 @@ export const PostPages: CollectionConfig<'posts-pages'> = {
                 return `${protocol}//${req.host}/preview/posts/${data.slug}`;
             },
         },
-        preview: (data, { req }) => {
-            return `${req.protocol}//${req.host}/preview/posts/${data.slug}`;
+        preview: (data) => {
+            return `http:${process.env.WEBSITE_URL}/preview/posts/${data.slug}`;
         },
     },
     fields: [

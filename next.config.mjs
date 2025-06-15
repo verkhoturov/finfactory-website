@@ -6,14 +6,22 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ["@chakra-ui/react"],
   },
+  distDir: process.env.TEMP_BUILD_DIR || '.next',
   images: {
     remotePatterns: [
       {
         hostname: 'localhost',
       },
       {
-        protocol: 'https',
-        hostname: 'finfactory-website.vercel.app',
+        protocol: 'http',
+        hostname: "beta.finfactory.one",
+        pathname: '/uploads/**',
+      },
+      {
+        protocol: 'http',
+        hostname: '37.18.89.18',
+        port: '3000',
+        pathname: '/uploads/**',
       },
     ],
   },

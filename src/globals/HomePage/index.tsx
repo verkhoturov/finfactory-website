@@ -262,6 +262,6 @@ export const HomePage: GlobalConfig = {
                 return `${protocol}//${req.host}/preview/home`;
             },
         },
-        preview: (_, { req }) => `${req.protocol}//${req.host}/preview/home`,
+        preview: () => `http:${process.env.WEBSITE_URL}/preview/home`,
     },
 };

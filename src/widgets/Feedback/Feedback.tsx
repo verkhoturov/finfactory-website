@@ -58,7 +58,6 @@ const Slide = ({
 type FeedbackProps = Pick<HomePageType, 'feedback'>;
 
 export const Feedback = ({ feedback }: FeedbackProps) => {
-
     const slides = feedback?.list?.map((item, index) => (
         <Slide
             key={index}

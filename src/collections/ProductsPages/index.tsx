@@ -60,8 +60,8 @@ export const ProductsPages: CollectionConfig<'products-pages'> = {
                 return `${protocol}//${req.host}/preview/${data.slug}`;
             },
         },
-        preview: (data, { req }) => {
-            return `${req.protocol}//${req.host}/preview/${data.slug}`;
+        preview: (data) => {
+            return `http:${process.env.WEBSITE_URL}/preview/${data.slug}`;
         },
     },
     fields: [

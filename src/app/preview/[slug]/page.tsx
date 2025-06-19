@@ -5,6 +5,8 @@ import React from 'react';
 import { ProductPage } from '@/page-templates/product';
 import { getPayload } from 'payload';
 
+export const dynamic = 'force-dynamic';
+
 type Args = {
     params: Promise<{
         slug?: string;

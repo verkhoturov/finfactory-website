@@ -5,6 +5,8 @@ import React from 'react';
 import { Home } from '@/page-templates/home';
 import { getPayload } from 'payload';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
     const page = await queryHomePageDraft();
 

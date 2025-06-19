@@ -19,7 +19,6 @@ type Args = {
 export default async function Page({ params: paramsPromise }: Args) {
     const { slug = '' } = await paramsPromise;
 
- 
         if (slug === 'posts') {
             const posts = await queryPostsBySlug({ all: true });
             return <BlogPage posts={posts} />;

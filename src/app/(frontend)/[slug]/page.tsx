@@ -14,6 +14,9 @@ type Args = {
     }>;
 };
 
+// ISR: Страница обновляется раз в 60 секунд
+export const revalidate = 60;
+
 export default async function Page({ params: paramsPromise }: Args) {
     const { slug } = await paramsPromise;
 

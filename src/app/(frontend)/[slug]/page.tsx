@@ -4,6 +4,7 @@ import configPromise from '@payload-config';
 import { getPayload } from 'payload';
 import React, { cache } from 'react';
 import { ProductPage } from '@/page-templates/product';
+import { Home } from '@/page-templates/home';
 
 import { generateMeta } from '@/shared/utils/generateMeta';
 
@@ -16,13 +17,19 @@ type Args = {
 export default async function Page({ params: paramsPromise }: Args) {
     const { slug } = await paramsPromise;
 
-    if (!slug) {
-        notFound();
+    if (slug) {
+        const page = await queryPageBySlug({ slug });
+
+        if (!page) {
+            return notFound();
+        }
+
+        return <ProductPage {...page} />;
     }
 
-    const page = await queryPageBySlug({ slug });
+    const page = await queryHomePage();
 
-    return <ProductPage {...page} />;
+    return <Home {...page} />;
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
@@ -51,4 +58,14 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
     });
 
     return result.docs?.[0] || null;
+});
+
+const queryHomePage = cache(async () => {
+    const payload = await getPayload({ config: configPromise });
+
+    const result = await payload.findGlobal({
+        slug: 'home-page',
+    });
+
+    return result || null;
 });

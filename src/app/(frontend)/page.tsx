@@ -10,24 +10,12 @@ import { generateMeta } from '@/shared/utils/generateMeta';
 
 type Page = ProductsPageType | HomePageType;
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
     const [page, posts] = await Promise.all([queryHomePage(), queryPostsBySlug({ all: false })]);
 
     return <Home {...page} posts={posts} />;
-}
-
-// ISR: Генерация статических параметров (Next.js создаёт HTML при билде)
-export async function generateStaticParams() {
-    const payload = await getPayload({ config: configPromise });
-
-    const pages = await payload.find({
-        collection: 'products-pages',
-        limit: 100, // Ограничение на количество страниц для предгенерации
-    });
-
-    return pages.docs.map((page) => ({
-        slug: page.slug,
-    }));
 }
 
 // Генерация SEO-мета с ISR

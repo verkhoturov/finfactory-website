@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import configPromise from '@payload-config';
 import { getPayload } from 'payload';
-import React from 'react';
+import React, { cache } from 'react';
 import { Home } from '@/page-templates/home';
 import { ProductPage } from '@/page-templates/product';
 import { BlogPage } from '@/page-templates/blog';
@@ -78,7 +78,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 }
 
 // Функции для получения данных
-const queryPageBySlug = async ({ slug }: { slug: string }) => {
+const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.find({
@@ -91,9 +91,9 @@ const queryPageBySlug = async ({ slug }: { slug: string }) => {
     });
 
     return result.docs?.[0] || null;
-};
+});
 
-const queryHomePage = async () => {
+const queryHomePage = cache(async () => {
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.findGlobal({
@@ -101,9 +101,9 @@ const queryHomePage = async () => {
     });
 
     return result || null;
-};
+});
 
-const queryPostsBySlug = async ({ all }: { all?: boolean }) => {
+const queryPostsBySlug = cache(async ({ all }: { all?: boolean }) => {
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.find({
@@ -112,4 +112,4 @@ const queryPostsBySlug = async ({ all }: { all?: boolean }) => {
     });
 
     return result.docs || null;
-};
+});
